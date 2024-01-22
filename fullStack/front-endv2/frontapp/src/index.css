@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Montserrat;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    max-width: 1370px;
+    margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+  width: 13px; /* ширина полосы прокрутки */
+}
+::-webkit-scrollbar-track {
+    background: linear-gradient(0deg, rgba(156,194,255,1) 0%, rgba(232,122,245,1) 100%);; /* цвет фона трека */
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(104, 164, 255); /* цвет полосы прокрутки */
+    -webkit-box-shadow: 0px 0px 10px 8px rgba(34, 60, 80, 0.25) inset;
+    -moz-box-shadow: 0px 0px 10px 8px rgba(34, 60, 80, 0.25) inset;
+    box-shadow: 0px 0px 10px 8px rgba(34, 60, 80, 0.25) inset;
+}
+::-webkit-scrollbar-thumb:active {
+    background: rgb(255, 255, 255); /* цвет полосы прокрутки при наведении */
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(232,122,245,1) inset;
+    -moz-box-shadow: 0px 0px 0px 0px rgba(232,122,245,1) inset;
+    box-shadow: 0px 0px 0px 0px rgba(232,122,245,1) inset;
+
+}

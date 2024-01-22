@@ -1,0 +1,121 @@
+.question-number-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    backdrop-filter: blur(4px);
+    background-color: rgba(255, 255, 255, 0.2);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #90B1E6;
+}
+
+.question-number-item.active {
+    backdrop-filter: blur(4px);
+    background-color: rgba(0, 132, 255, 0.3);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    border: 0;
+    color: white;
+}
+
+.bg-quiz-game {
+    min-height: 100vh;
+    background: rgb(110,110,110);
+    background: linear-gradient(-45deg, rgba(202, 202, 202, 0.5) 0%, rgba(105,138,204,0.5) 100%), url('../../image/drakon-guizgame2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #e690df;
+    font-size: 22px;
+    font-weight: bold;
+    position: relative;
+    padding-top: 80px;
+}
+
+.title-game {
+    color: #d15bc7;
+    font-weight: bold;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-top: 8%;
+}
+
+.answer-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    background-color: rgba(255, 255, 255, 0.4);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    border: 0;
+    width: 100%;
+    min-height: 50px;
+    margin-top: 5%;
+    border-radius: 10px;
+    color: #d15bc7;
+    cursor: pointer;
+}
+
+.title-question-quiz-game {
+    color: #ffffff;
+    font-weight: 600;
+    margin-top: auto;
+    display: inline;
+    text-align: start;
+    width: 100%;
+    position: relative;
+    font-size: 32px;
+    /* backdrop-filter: blur(8px); */
+}
+
+.button-question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+    border-radius: 10px;
+    width: 100%;
+    margin-top: 5%;
+}
+
+.button-question.next {
+    background: rgb(107, 160, 244);
+    background: linear-gradient(135deg, rgba(107, 160, 244, 1) 0%, rgba(218, 81, 234, 1) 100%);
+    color: white;
+}
+
+.button-question.end {
+    background: rgb(107, 160, 244);
+    background: linear-gradient(135deg, rgb(49, 121, 238) 0%, rgba(107, 160, 244, 1) 100%);
+    color: white;
+}
+
+.answer-game.active {
+    -webkit-box-shadow: 0px 0px 7px 4px rgba(0, 255, 0, 0.5);
+    -moz-box-shadow: 0px 0px 7px 4px rgba(0, 255, 0, 0.5);
+    box-shadow: 0px 0px 10px 4px rgba(0, 255, 0, 0.5);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 80px);
+    justify-content: center;
+}
+
+.lil-uzi {
+    margin-top: auto;
+    padding-bottom: 5%;
+}

@@ -1,0 +1,42 @@
+.bg-quiz-detail{
+    min-height: 100vh;
+    background: rgb(191,191,191);
+    background: linear-gradient(90deg, rgba(191,191,191,0.35) 0%, rgba(0,212,255,0.35) 100%), url('../../image/drakonEgor.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 80px 0 0 0;
+}
+.quizButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: rgb(107,160,244);
+    background: linear-gradient(135deg, rgba(107,160,244,1) 0%, rgba(218,81,234,1) 100%); */
+    background: rgb(25,93,224);
+    background: linear-gradient(120deg, rgba(25,93,224,1) 0%, rgba(76,165,239,1) 100%);
+    border: 0;
+    margin-top: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    height: 30px;
+}
+.quizButton:hover {
+    background: rgb(52,134,229);
+    background: linear-gradient(120deg, rgba(52,134,229,1) 0%, rgba(93,199,255,1) 100%);
+}
+.quizButton:active{
+    -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.5) inset;
+    -moz-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.5) inset;
+    box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.5) inset;
+}
+h3{
+    color: #DD90E6; 
+    font-size: 50px;
+    font-weight: bold;
+}
+h4{
+    color: #90B1E6;
+}

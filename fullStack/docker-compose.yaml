@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  dq-server:
+    build: 
+      context: ./back-end
+      dockerfile: Dockerfile
+    command: >
+      bash -c
+      "
+      alembic upgrade head
+      &&
+      uvicorn main:app --reload --host 0.0.0.0 --port 8080
+      "
+    restart: unless-stopped
+    ports:
+      - "8000:8080"
+    environment:
+      POSTGRES_USER: dies_admin
+      POSTGRES_PASSWORD: 123123
+      POSTGRES_DB: postgres
+    env_file:
+      - /back-end/.env
+    depends_on:
+      - db
+      - redis
+  db:
+    image: postgres:15.3
+    environment:
+      POSTGRES_USER: dies_admin
+      POSTGRES_PASSWORD: 123123
+      POSTGRES_DB: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  dq-client:
+    build: 
+      context: ./front-endv2
+      dockerfile: Dockerfile
+    command: >
+      bash -c
+      "
+      cd frontapp
+      &&
+      npm start
+      "
+    ports:
+      - "3000:3000"
+    depends_on:
+      - dq-server
+volumes:
+  postgres_data:
