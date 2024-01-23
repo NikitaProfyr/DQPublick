@@ -18,8 +18,7 @@ from services.User import (
     save_refresh_token,
     delete_refresh_token,
     validate_refresh_token,
-    delete_user,
-    update_password,
+    delete_user, update_password,
 )
 
 user_public_router = APIRouter(tags=["UserPublic"])
@@ -42,12 +41,7 @@ def refresh(request: Request, db: Session = Depends(get_db)):
 
 
 @user_public_router.post("/login")
-def authorization(
-    user_data: UserCreate,
-    response: Response,
-    request: Request,
-    db: Session = Depends(get_db),
-):
+def authorization(user_data: UserCreate, response: Response, request: Request, db: Session = Depends(get_db)):
     """Авторизует пользователя"""
     user = authenticated(db=db, user_data=user_data)
     if not user:
@@ -64,7 +58,7 @@ def authorization(
     refresh_token = create_token(
         data={"userName": user.userName}, expires_delta=refresh_token_expires
     )
-    save_refresh_token(user_data=user_data, request=request, token=refresh_token, db=db)
+    save_refresh_token(user_data=user_data , token=refresh_token, db=db)
     response.set_cookie(
         key="refreshToken",
         value=refresh_token,
@@ -101,12 +95,7 @@ def current_user(token, db: Session = Depends(get_db)):
 
 
 @user_private_router.put("/update/user")
-def update_user_data(
-    user_data: UserUpdate,
-    request: Request,
-    response: Response,
-    db: Session = Depends(get_db),
-):
+def update_user_data(user_data: UserUpdate, request: Request, response: Response, db: Session = Depends(get_db)):
     """Обновляет данные конкретного пользователя"""
     refresh_token = request.cookies.get("refreshToken")
     user_updated = update_user(request=request, db=db, user=user_data)
@@ -131,15 +120,11 @@ def update_user_data(
     )
     response.headers["Authorization"] = access_token
 
-    return {
-        "user": {
-            "id": user_updated.id,
-            "userName": user_updated.userName,
-            "email": user_updated.email,
-        },
-        "accessToken": access_token,
-        "refreshToken": refresh_token,
-    }
+    return {"user": {
+        "id": user_updated.id,
+        "userName": user_updated.userName,
+        "email": user_updated.email,
+    }, "accessToken": access_token, "refreshToken": refresh_token}
 
 
 @user_private_router.delete("/delete")
@@ -149,8 +134,6 @@ def delete_user_data(request: Request, db: Session = Depends(get_db)):
 
 
 @user_private_router.post("/update/password")
-def update_password_data(
-    request: Request, user_data: UpdatePasswordSchema, db: Session = Depends(get_db)
-):
+def update_password_data(request: Request, user_data: UpdatePasswordSchema, db: Session = Depends(get_db)):
     """Обновляет пароль у конкретного пользователя"""
     update_password(request=request, user_data=user_data, db=db)

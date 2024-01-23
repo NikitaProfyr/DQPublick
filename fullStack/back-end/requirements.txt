@@ -17,5 +17,7 @@ pytest
 jose
 fastapi-cache2[redis]
 redis
+celery
+flower
 fastapi-pagination
 

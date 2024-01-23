@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI, Request, Depends
 from fastapi_cache.backends.redis import RedisBackend
 
@@ -30,6 +31,9 @@ app = FastAPI(
 add_pagination(app)
 
 
+
+
+
 # регистрация роутеров
 
 app.include_router(
@@ -55,9 +59,7 @@ app.include_router(
 async def startup_event():
     redis = aioredis.from_url(
         # "redis://redis", encoding="utf8", decode_responses=True
-        f"redis://{getenv('REDIS_HOST')}",
-        encoding="utf8",
-        decode_responses=True,
+        f"redis://{getenv('REDIS_HOST')}", encoding="utf8", decode_responses=True
     )
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
 
@@ -69,3 +71,5 @@ app.add_middleware(
     allow_methods=["POST", "GET", "DELETE", "PUT"],  # Разрешить любые HTTP-методы
     allow_headers=["*"],  # Разрешить любые заголовки
 )
+
+

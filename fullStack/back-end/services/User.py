@@ -11,13 +11,7 @@ from starlette.status import HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED, HTTP_2
 
 from model.Settings import get_db
 from model.User import User, Token
-from model.UserSchema import (
-    UserBase,
-    UserCreate,
-    UserUpdate,
-    UserId,
-    UpdatePasswordSchema,
-)
+from model.UserSchema import UserBase, UserCreate, UserUpdate, UserId, UpdatePasswordSchema
 from security import pwdContext, SECRET_KEY, ALGORITHM, oauth2Scheme
 
 
@@ -75,9 +69,7 @@ def delete_refresh_token(token: str, db: Session = Depends(get_db)):
     db.commit()
 
 
-def save_refresh_token(
-    user_data: UserCreate, token: str, db: Session = Depends(get_db)
-):
+def save_refresh_token(user_data: UserCreate, token: str, db: Session = Depends(get_db)):
     user = get_user(db=db, user_data=user_data)
 
     refresh_token = db.scalar(select(Token).where(or_(Token.userId == user.id)))
@@ -89,9 +81,7 @@ def save_refresh_token(
     db.commit()
 
 
-def select_current_token(
-    user_id: str, db: Session = Depends(get_db)
-) -> str:  # не используется
+def select_current_token(user_id: str, db: Session = Depends(get_db)) -> str:  # не используется
     refresh_token = db.scalar(select(Token).where(or_(user_id == user_id)))
     if not refresh_token:
         raise HTTP_400_BAD_REQUEST
@@ -109,9 +99,7 @@ def validate_refresh_token(token: str, db: Session = Depends(get_db)):
 def delete_user(request: Request, db: Session = Depends(get_db)):
     try:
         db.execute(
-            delete(User).where(
-                or_(User.id == get_user_id_by_token(request=request, db=db))
-            )
+            delete(User).where(or_(User.id == get_user_id_by_token(request=request, db=db)))
         )
         db.commit()
         return HTTP_200_OK
@@ -129,9 +117,9 @@ def get_user_id_by_token(request: Request, db: Session = Depends(get_db)):
 
 
 def get_current_user(
-    token: Annotated[str, Depends(oauth2Scheme)],
-    # token: str,
-    db: Session = Annotated[str, Depends(get_db)],
+        token: Annotated[str, Depends(oauth2Scheme)],
+        # token: str,
+        db: Session = Annotated[str, Depends(get_db)],
 ):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -155,14 +143,11 @@ def get_current_user(
 def update_user(request: Request, db: Session, user: UserUpdate):
     id_user = get_user_id_by_token(request=request, db=db)
     existing_user = db.execute(
-        select(User).where(
-            or_(User.userName == user.userName, User.email == user.email)
-        )
-    ).scalar()
+        select(User).where(or_(User.userName == user.userName, User.email == user.email))).scalar()
     if existing_user and existing_user.id != id_user:
         raise HTTPException(
             status_code=400,
-            detail="Пользователь с таким именем или email уже существует.",
+            detail="Пользователь с таким именем или email уже существует."
         )
 
     try:
@@ -184,13 +169,12 @@ def update_user(request: Request, db: Session, user: UserUpdate):
         print(Exception)
         db.rollback()
         raise HTTPException(
-            status_code=500, detail="Произошла ошибка при обновлении пользователя."
+            status_code=500,
+            detail="Произошла ошибка при обновлении пользователя."
         ) from ex
 
 
-def update_password(
-    request: Request, user_data: UpdatePasswordSchema, db: Session = Depends(get_db)
-):
+def update_password(request: Request, user_data: UpdatePasswordSchema, db: Session = Depends(get_db)):
     id_user = get_user_id_by_token(request=request, db=db)
     user = db.scalar(select(User).where(or_(User.id == id_user)))
     if not pwdContext.verify(user_data.oldPassword, user.hashedPassword):

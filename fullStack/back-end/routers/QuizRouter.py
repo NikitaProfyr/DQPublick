@@ -15,9 +15,7 @@ from services.Quiz import (
     update_image_quiz,
     select_quiz,
     create_quiz_results,
-    select_quiz_results_user,
-    create_quiz,
-)
+    select_quiz_results_user, create_quiz, )
 
 from fastapi_pagination import Page
 
@@ -41,9 +39,7 @@ def get_current_quiz(id_quiz: int, db: Session = Depends(get_db)) -> QuizSchema:
 
 
 @quiz_private_router.get("/getquizuser", response_model=Page[QuizBaseSchema])
-def get_user_quiz(
-    request: Request, db: Session = Depends(get_db)
-) -> Page[QuizBaseSchema] | None:
+def get_user_quiz(request: Request, db: Session = Depends(get_db)) -> Page[QuizBaseSchema] | None:
     """Получить созданные опросы конкретного пользователя"""
     return select_user_quiz(request=request, db=db)
 
@@ -60,10 +56,9 @@ def get_quiz_image(url_image: str):
     return url_image
 
 
+
 @quiz_private_router.post("/create-result")
-def add_quiz_result(
-    request: Request, quiz_id: int, result: int, db: Session = Depends(get_db)
-):
+def add_quiz_result(request: Request, quiz_id: int, result: int, db: Session = Depends(get_db)):
     """Создать у конкретного пользователя результат прохождения опроса"""
     return create_quiz_results(request=request, quiz_id=quiz_id, result=result, db=db)
 
@@ -97,8 +92,6 @@ def update_image(
 
 
 @quiz_private_router.delete("/deletequiz/")
-def remove_current_quiz(
-    quiz_data: int, request: Request, db: Session = Depends(get_db)
-):
+def remove_current_quiz(quiz_data: int, request: Request, db: Session = Depends(get_db)):
     """Удалить конкретный опрос"""
     return delete_current_quiz(quiz_data=quiz_data, request=request, db=db)

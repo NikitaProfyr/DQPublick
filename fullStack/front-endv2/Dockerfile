@@ -10,3 +10,5 @@ COPY . .
 RUN npm install
 CMD ["cd", "frontapp"]
 RUN npm install
+
+

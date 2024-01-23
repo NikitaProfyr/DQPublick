@@ -19,6 +19,8 @@ services:
       POSTGRES_USER: dies_admin
       POSTGRES_PASSWORD: 123123
       POSTGRES_DB: postgres
+      POSTGRES_HOST: db
+      REDIS_HOST: redis
     env_file:
       - /back-end/.env
     depends_on:
