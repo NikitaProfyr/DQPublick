@@ -36,7 +36,7 @@ export default class AuthService {
         console.log(answer, "3232")
         return answer
     }
-    static updateUserData = async (userName, id, email) => {
+    static updateUserData = async (userName, email) => {
         const userData = {
             email: email,
             userName: userName,

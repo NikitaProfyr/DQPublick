@@ -21,7 +21,9 @@ from services.User import get_user_id_by_token
 def create_answer(
     id_question: int, anwer_data: AnswerSchema, db: Session = Depends(get_db)
 ):
-    anwer = Answer(title=anwer_data.title, right=anwer_data.right, questionId=id_question)
+    anwer = Answer(
+        title=anwer_data.title, right=anwer_data.right, questionId=id_question
+    )
     db.add(anwer)
     db.commit()
 
@@ -52,7 +54,9 @@ def create_quiz(quiz_data: QuizSchema, request: Request, db: Session = Depends(g
         create_question(id_quiz=quiz.id, question_data=item, db=db)
 
 
-def create_quiz_results(request: Request, quiz_id: int, result: int, db: Session = Depends(get_db)):
+def create_quiz_results(
+    request: Request, quiz_id: int, result: int, db: Session = Depends(get_db)
+):
     id_user = get_user_id_by_token(request=request, db=db)
     quiz = db.scalar(
         select(QuizResults).where(
@@ -68,7 +72,9 @@ def create_quiz_results(request: Request, quiz_id: int, result: int, db: Session
     db.commit()
 
 
-def delete_current_quiz(quiz_data: int, request: Request, db: Session = Depends(get_db)):
+def delete_current_quiz(
+    quiz_data: int, request: Request, db: Session = Depends(get_db)
+):
     id_user = get_user_id_by_token(request=request, db=db)
     quiz_check = db.scalar(
         select(Quiz).where(and_(Quiz.id == quiz_data, Quiz.authorId == id_user))
@@ -124,16 +130,14 @@ def select_user_quiz(request: Request, db: Session = Depends(get_db)):
 
 def select_quiz_results_user(request: Request, db: Session = Depends(get_db)):
     id_user = get_user_id_by_token(request=request, db=db)
-    quiz = (
-        db.query(QuizResults)
-        .options(joinedload(QuizResults.quiz))
-        .where()
-        .all()
-    )
+    quiz = db.query(QuizResults).options(joinedload(QuizResults.quiz)).where().all()
 
-    return paginate(conn=db, query=select(QuizResults).where(and_(
-        QuizResults.userId == id_user, QuizResults.quizId == Quiz.id
-    )))
+    return paginate(
+        conn=db,
+        query=select(QuizResults).where(
+            and_(QuizResults.userId == id_user, QuizResults.quizId == Quiz.id)
+        ),
+    )
 
 
 def delete_image(imageUrl: str):
@@ -163,7 +167,9 @@ def update_current_quiz(quiz_data: QuizSchema, db: Session = Depends(get_db)):
         update(Quiz)
         .where(Quiz.id == quiz_data.id)
         .values(
-            title=quiz_data.title, description=quiz_data.description, image=quiz_data.image
+            title=quiz_data.title,
+            description=quiz_data.description,
+            image=quiz_data.image,
         )
     )
     delete_question_current_quiz(quiz_id=quiz_data.id, db=db)

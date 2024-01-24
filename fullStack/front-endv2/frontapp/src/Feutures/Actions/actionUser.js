@@ -25,7 +25,7 @@ export const logoutAction = (dispatch) => {
     })
 }
 
-export const updateUserAction = async (dispatch, userName, id, email) => {
-    const data = await AuthService.updateUserData(userName, id, email)
+export const updateUserAction = async (dispatch, userName, email) => {
+    const data = await AuthService.updateUserData(userName, email)
     dispatch({ type: "UPDATE_USER", payload: data })
 }

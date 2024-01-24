@@ -33,7 +33,7 @@ const UserSettings = () => {
     }
     const userUpdateData = async (e) => {
         e.preventDefault()
-        updateUserAction(dispatch, userName, user.id, email)
+        updateUserAction(dispatch, userName, email)
         .then(() => {
             return alert("Данные успешно обновлены.")
         })
