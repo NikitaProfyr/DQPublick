@@ -33,6 +33,9 @@ services:
       POSTGRES_PASSWORD: 123123
       POSTGRES_DB: postgres
     restart: always
+    volumes:
+      - ./Initer:/docker-entrypoint-initdb.d
+      - usr-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
   redis:
@@ -56,3 +59,4 @@ services:
       - dq-server
 volumes:
   postgres_data:
+  usr-data:
