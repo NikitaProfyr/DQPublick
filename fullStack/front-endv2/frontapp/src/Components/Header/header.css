@@ -24,3 +24,10 @@
     -moz-user-select: none;
     -ms-user-select: none;
 }
+.nav-bar p{
+    color: #90B1E6;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 5px;
+}

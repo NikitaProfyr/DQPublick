@@ -12,20 +12,20 @@
     justify-content: center;
     /* background: rgb(107,160,244);
     background: linear-gradient(135deg, rgba(107,160,244,1) 0%, rgba(218,81,234,1) 100%); */
-    background: rgb(25,93,224);
-    background: linear-gradient(120deg, rgba(25,93,224,1) 0%, rgba(76,165,239,1) 100%);
+    background: rgb(156,194,255);
+    background: linear-gradient(270deg, rgb(0, 195, 255) 0%, rgba(232,122,245,1) 100%);
     border: 0;
     margin-top: 10px;
     text-decoration: none;
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: bold;
     text-align: center;
     border-radius: 5px;
     height: 30px;
 }
 .quizButton:hover {
-    background: rgb(52,134,229);
-    background: linear-gradient(120deg, rgba(52,134,229,1) 0%, rgba(93,199,255,1) 100%);
+    background: rgb(156,194,255);
+    background: linear-gradient(270deg, rgb(0, 162, 255) 0%, rgb(255, 33, 236) 100%);
 }
 .quizButton:active{
     -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.5) inset;
@@ -33,10 +33,30 @@
     box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.5) inset;
 }
 h3{
-    color: #DD90E6; 
+    color: #ffffff; 
     font-size: 50px;
     font-weight: bold;
 }
 h4{
-    color: #90B1E6;
+    font-size: 30px;
+    font-weight: bold;
+    color: #dbdbdb;
+}
+
+.left-content {
+    backdrop-filter: blur(4px);
+    /* background-color: rgba(255, 255, 255, 0.2); */
+    background: linear-gradient(120deg, rgba(52,134,229,1) 0%, rgba(93,199,255,1) 100%);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    border: 0;
+    text-decoration: none;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
+    transition: .8s;
+}
+.left-content:hover {
+    background: linear-gradient(120deg, rgb(50, 132, 226) 0%, rgb(77, 163, 209) 100%);
 }

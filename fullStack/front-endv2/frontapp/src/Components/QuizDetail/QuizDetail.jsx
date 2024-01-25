@@ -38,7 +38,7 @@ const QuizDetail = () => {
               <div className="left-content my-5 col-lg-6 col-md-12 col-12">
                 <h3>{quiz.title}</h3>
                 <h4>{quiz.description}</h4>
-                <h4>Количество вопросов: quiz.question.length</h4>
+                <h4>Количество вопросов: {quiz.question.length}</h4>
               </div>
               <div className="right-content my-5 col-lg-6 col-md-12 col-12">
                 <div className="img-block">

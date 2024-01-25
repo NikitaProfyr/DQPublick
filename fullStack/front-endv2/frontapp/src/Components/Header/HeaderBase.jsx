@@ -14,7 +14,10 @@ const HeaderBase = () => {
         </div>
         <div className="nav-bar auth-link">
           {/* <a href="#"></a> */}
-          <Link to="/authorization">Авторизация</Link>
+          <Link to={ROUTES.LOGIN}>Войти </Link>
+          <p> / </p>
+          <Link to={ROUTES.REGISTRATION}> Зарегистрироваться</Link>
+
         </div>
       </div>
     </div>

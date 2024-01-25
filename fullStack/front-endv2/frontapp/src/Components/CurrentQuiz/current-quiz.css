@@ -30,9 +30,12 @@
     word-break: break-all;
 }
 .title-description {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* justify-content: center;
+    align-items: center;  */
     height: 75px;
     width: 90%;
     font-size: 18px;
@@ -41,6 +44,7 @@
     opacity: 0.9;
     text-align: center;
     color: #3d77d4;
+    
 }
 .current-quiz-img{
     width: 100%;
