@@ -15,7 +15,7 @@
 
 .footer-left p{
     color: #90B1E6;
-    font-size: calc(8px + 16 * (100vw / 1920));
+    font-size: calc(6px + 16 * (100vw / 1920));
     font-weight: bold;
     margin-top: 2%;
 }

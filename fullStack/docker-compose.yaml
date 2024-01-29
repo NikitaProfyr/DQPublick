@@ -27,15 +27,16 @@ services:
       - db
       - redis
   db:
-    image: postgres:15.3
+    image: postgres:16
     environment:
       POSTGRES_USER: dies_admin
       POSTGRES_PASSWORD: 123123
       POSTGRES_DB: postgres
     restart: always
     volumes:
-      - ./Initer:/docker-entrypoint-initdb.d
-      - usr-data:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/gata
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./new_dump.sql:/docker-entrypoint-initdb.d/new_dump.sql
     ports:
       - "5432:5432"
   redis:

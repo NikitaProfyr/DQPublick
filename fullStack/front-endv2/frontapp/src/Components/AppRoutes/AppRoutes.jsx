@@ -14,6 +14,7 @@ import QuizDetailPage from '../../Page/QuizDetailPage'
 import QuizUserPage from '../../Page/QuizUserPage'
 import QuizCreatePage from '../../Page/QuizCreatePage'
 import QuizUpdatePage from '../../Page/QuizUpdatePage'
+import AboutUsPage from '../../Page/AboutUsPage'
 import QuizGamePage from '../../Page/QuizGamePage'
 import { useSelector } from 'react-redux'
 
@@ -60,6 +61,10 @@ const PrivateRoutes = [
   {
     path: ROUTES.QUIZ_GAME + "/:id",
     Component: <QuizGamePage />
+  },
+  {
+    path: ROUTES.ABOUT_US,
+    Component: <AboutUsPage />
   },
 ]
 
