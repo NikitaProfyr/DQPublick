@@ -9,8 +9,7 @@ const HeaderBase = () => {
       <div className="Header">
 
         <div className="logo">
-          <Link to={ROUTES.HOME}><img src={LogoImg} height="40" alt="Logo" /></Link>
-
+          <Link to={ROUTES.HOME}><img src={LogoImg} alt="Logo" /></Link>
         </div>
         <div className="nav-bar auth-link">
           {/* <a href="#"></a> */}

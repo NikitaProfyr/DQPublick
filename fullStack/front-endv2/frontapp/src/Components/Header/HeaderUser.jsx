@@ -52,7 +52,7 @@ const HeaderUser = () => {
                 <div className="container wow">
                     <div className="Header">
                         <div className="logo">
-                            <Link to={ROUTES.QUIZ_LIST}><img src={LogoImg} height="40" alt="Logo" /></Link>
+                            <Link to={ROUTES.QUIZ_LIST}><img src={LogoImg} height="40px" alt="Logo" /></Link>
                         </div>
                         <div onClick={addActiveClass} className={isActive ? "burger-button active"  : "burger-button"}>
                             <span></span>

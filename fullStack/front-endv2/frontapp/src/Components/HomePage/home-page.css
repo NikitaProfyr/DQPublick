@@ -110,7 +110,6 @@
     margin-right: 10%;
     color: #FFFFFF;
     text-decoration: none;
-    font-size: calc(22px + 26 * (100vw / 1920));
     font-weight: bold;
 }
 .content-right-2:active {
@@ -121,4 +120,8 @@
 
 .button-content-home-page-buttom {
     text-decoration: none;
+}
+.content-right-2 span {
+    font-size: calc(14px + 34 * (100vw / 1920));
+    color: #FFFFFF;
 }

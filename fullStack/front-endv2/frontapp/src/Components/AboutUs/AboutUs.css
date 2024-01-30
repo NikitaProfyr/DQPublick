@@ -1,6 +1,6 @@
 .bg-about-us {
     background: rgb(191,191,191);
-    background: linear-gradient(135deg, rgba(191,191,191,0.35) 0%, rgba(198,100,181,0.3) 100%), url('../../image/IBD3.png');
+    background: linear-gradient(135deg, rgba(191,191,191,0.35) 0%, rgba(198,100,181,0.3) 100%), url('../../image/IBD4.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -27,5 +27,5 @@ p {
     z-index: 1;
 }
 span {
-    color: #e600ff;
+    color: #f16fff;
 }

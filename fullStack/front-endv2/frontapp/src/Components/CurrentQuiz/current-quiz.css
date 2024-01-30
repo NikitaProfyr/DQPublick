@@ -13,12 +13,13 @@
     border-radius: 10px;
     overflow: hidden;
     z-index: 1;
-
+    position: relative;
 }
 .title-quiz{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
+    overflow: hidden;
     color: #e600ff;
     height: 80px;
     width: 90%;
@@ -36,7 +37,7 @@
     overflow: hidden;
     /* justify-content: center;
     align-items: center;  */
-    height: 60px;
+    height: 58px;
     width: 90%;
     font-size: 18px;
     font-weight: bold;
@@ -75,4 +76,34 @@
 }
 .current-quiz-xxxtentacion {
     border-radius: 10px;
+}
+.conteiner-image {
+    width: 100%;
+    min-height: 200px;
+    object-fit: cover;
+    padding: 0;
+    align-self: center;
+    opacity: 0.9;
+    height: 200px;
+    position: relative;
+}
+.setting-icon-quiz-user {
+    position: absolute;
+    opacity: 0;
+    z-index: 100;
+    left: 0;
+    top: 0;
+}
+.current-quiz-img-absolut {
+    width: 100%;
+    min-height: 200px;
+    object-fit: cover;
+    padding: 0;
+    align-self: center;
+    opacity: 0.9;
+    height: 200px;
+    position: absolute;
+}
+.current-quiz:hover > .setting-icon-quiz-user{
+    opacity: 1;
 }

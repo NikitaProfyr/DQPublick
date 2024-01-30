@@ -24,7 +24,9 @@
     color: #DD90E6;
     font-size: calc(8px + 16 * (100vw / 1920));
     font-weight: bold;
+    cursor: pointer;
 }
+
 .footer-left span:hover{
     color: #3d77d4;
 }
