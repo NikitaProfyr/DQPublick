@@ -8,8 +8,6 @@ services:
     command: >
       bash -c
       "
-      alembic upgrade head
-      &&
       uvicorn main:app --reload --host 0.0.0.0 --port 8080
       "
     restart: unless-stopped
@@ -34,9 +32,7 @@ services:
       POSTGRES_DB: postgres
     restart: always
     volumes:
-      - ./pgdata:/var/lib/postgresql/gata
-      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
-      - ./new_dump.sql:/docker-entrypoint-initdb.d/new_dump.sql
+      - ./dumpUTF8.sql:/docker-entrypoint-initdb.d/dumpUTF8.sql
     ports:
       - "5432:5432"
   redis:

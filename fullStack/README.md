@@ -8,3 +8,5 @@
 - Перейдите по ссылке: http://localhost:3000/ 
 
 Проект еще находится в разработке, некоторые функции могут быть не доступны.
+docker exec -it fullstack-db-1 /bin/bash
+psql -d postgres -U dies_admin < /docker-entrypoint-initdb.d/dumpUTF8.sql
