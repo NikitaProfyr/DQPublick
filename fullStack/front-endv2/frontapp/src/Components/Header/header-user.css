@@ -14,7 +14,7 @@
     justify-content: space-between;
     font-weight: bold;
     z-index: 2;
-    
+    width: 100%;   
 }
 .nav-bar li{
     color: #90B1E6;
@@ -46,6 +46,7 @@ ul{
     padding: 0;
     margin: 0;
 }
+
 
 @media(max-width: 768px) {
     body.active{
@@ -141,5 +142,8 @@ ul{
     }
     .nav-bar li:hover{
         backdrop-filter: blur(16px);
+    }
+    .logo {
+        width: 40%;
     }
 }

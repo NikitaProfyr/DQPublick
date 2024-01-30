@@ -52,7 +52,7 @@ const HeaderUser = () => {
                 <div className="container wow">
                     <div className="Header">
                         <div className="logo">
-                            <Link to={ROUTES.QUIZ_LIST}><img src={LogoImg} height="40" alt="Logo" /></Link>
+                            <Link to={ROUTES.QUIZ_LIST}><img src={LogoImg} height="40px" alt="Logo" /></Link>
                         </div>
                         <div onClick={addActiveClass} className={isActive ? "burger-button active"  : "burger-button"}>
                             <span></span>
@@ -61,7 +61,7 @@ const HeaderUser = () => {
                             <ul className="nav-bar">
                                 <li><Link onClick={() => (removeActive(ROUTES.QUIZ_LIST))} to={ROUTES.QUIZ_LIST} className="link-quiz">Опросы</Link></li>
                                 <li><Link onClick={() => (removeActive(ROUTES.QUIZ_USER))} to={ROUTES.QUIZ_USER} className="link-quiz">Мои опросы</Link></li>
-                                <li><a href="#" className="link-quiz">О нас</a></li>
+                                <li><Link onClick={() => (removeActive(ROUTES.ABOUT_US))} to={ROUTES.ABOUT_US} className="link-quiz">О нас</Link></li>
                                 <li title='Настройки пользователя'><Link onClick={() => (removeActive(ROUTES.USER_SETTING))} to={ROUTES.USER_SETTING} className="link-quiz">{user.userName}</Link></li>
                             </ul>
                         </div>

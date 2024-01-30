@@ -9,15 +9,11 @@ const HeaderBase = () => {
       <div className="Header">
 
         <div className="logo">
-          <Link to={ROUTES.HOME}><img src={LogoImg} height="40" alt="Logo" /></Link>
-
+          <Link to={ROUTES.HOME}><img src={LogoImg} alt="Logo" /></Link>
         </div>
         <div className="nav-bar auth-link">
           {/* <a href="#"></a> */}
-          <Link to={ROUTES.LOGIN}>Войти </Link>
-          <p> / </p>
-          <Link to={ROUTES.REGISTRATION}> Зарегистрироваться</Link>
-
+          <Link to={ROUTES.LOGIN}> Авторизоваться </Link>
         </div>
       </div>
     </div>
