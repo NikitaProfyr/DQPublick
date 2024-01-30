@@ -9,6 +9,7 @@ from middleware.Token import CheckAuthMiddleware
 from model.UserSchema import UserCreate, UserUpdate, UpdatePasswordSchema
 from model.Settings import get_db
 from security import ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_TOKEN_EXPIRE_DAYS
+from services.Mail import send_message_ibd
 from services.User import (
     create_user,
     authenticated,
@@ -158,3 +159,7 @@ def update_password_data(
     """Обновляет пароль у конкретного пользователя"""
     update_password(request=request, user_data=user_data, db=db)
 
+
+@user_public_router.post("/reset/password")
+def reset_password():
+    send_message_ibd('qwe', 'qwe')
