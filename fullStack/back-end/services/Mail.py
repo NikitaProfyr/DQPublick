@@ -9,15 +9,15 @@ load_dotenv()
 
 
 def send_message_ibd():
-    smtp_server = "smtp.yandex.ru"
-    mail = 'IBDCorporation@yandex.ru'
+    smtp_server = "smtp.yandex.com"
+    mail = 'IBDCorporation@yandex.com'
     password = getenv('MAIL_PASS')
     port = 587   # используйте порт 465 для SSL
 
     msg = EmailMessage()
     msg.set_content('Аджарагуджу from IBDCorparation kuuurvaaaa')
     msg['Subject'] = 'Subject line'
-    msg['From'] = 'IBDCorporation@yandex.ru'
+    msg['From'] = 'IBDCorporation@yandex.com'
     msg['To'] = 'neicker44536@gmail.com'
 
     try:
