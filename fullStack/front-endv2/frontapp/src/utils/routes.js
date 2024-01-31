@@ -1,3 +1,4 @@
+
 export const ROUTES = {
     HOME: '/',
     LOGIN: '/authorization',
@@ -10,6 +11,7 @@ export const ROUTES = {
     QUIZ_USER_DETAIL: "/quiz-user" ,
     QUIZ_CREATE: "/quiz-create",
     QUIZ_GAME: "/quiz-game",
-    ABOUT_US: "/about-us"
+    ABOUT_US: "/about-us",
+    PASSWORD_RECOVERY: "/password-recovery"
 } 
 

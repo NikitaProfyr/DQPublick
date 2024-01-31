@@ -6,7 +6,7 @@ from starlette.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_408_REQUEST
 
 
 from middleware.Token import CheckAuthMiddleware
-from model.UserSchema import UserCreate, UserUpdate, UpdatePasswordSchema
+from model.UserSchema import UserCreate, UserUpdate, UpdatePasswordSchema, UserEmail
 from model.Settings import get_db
 from security import ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_TOKEN_EXPIRE_DAYS
 from services.Mail import send_message_ibd
@@ -161,5 +161,5 @@ def update_password_data(
 
 
 @user_public_router.post("/reset/password")
-def reset_password():
-    send_message_ibd()
+def reset_password(email: UserEmail, db: Session = Depends(get_db)):
+    return send_message_ibd(email=email, db=db)

@@ -15,7 +15,6 @@ export default class AuthService {
         return data
     }
     static deleteCurrentUser = async (userId) => {
-        console.log('da', userId);
         return await Api.delete(`/users/delete/`)
     }
     static logup(userName, password) {
@@ -74,5 +73,16 @@ export default class AuthService {
             .then(response => {
                 return Promise.resolve(response.data)
             })
+    }
+    static resetPassword = async (email) => {
+        const emailData = {
+            email: email,
+        }
+        const { data } = Api.post('/users/reset/password', emailData).catch((err) => (
+            alert("Пользователя с данной почтой не существует.") 
+        )).then((res) => (
+            alert(`На ${email} было отправлено сообщение.`)
+        ))
+        return data    
     }
 }

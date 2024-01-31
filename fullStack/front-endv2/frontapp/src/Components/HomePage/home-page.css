@@ -1,7 +1,7 @@
 .bg-content-block-1{
     height: calc(100vh - 80px);
-    background: rgb(191,208,236);
-    background: linear-gradient(90deg, rgba(191,208,236,0.35) 0%, rgba(144,177,230,0.35) 100%), url('../../image/drakonEgor.png');
+    background: rgb(157,184,226);
+    background: linear-gradient(135deg, rgba(100, 144, 214, 0.5) 0%, rgba(199, 222, 255, 0.5) 100%), url('../../image/drakonEgor.png');
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
@@ -22,13 +22,23 @@
 }
 
 .text-content-block-1{
+    margin-top: 4%;
     z-index: 100;
+    width: 100%;
+    min-height: 25%;
+    backdrop-filter: blur(6px);
+    background-color: rgba(255, 255, 255, 0.1);
+    /* -webkit-box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 0px 10px 4px rgba(34, 60, 80, 0.2); */
+    border: 0;
+    text-decoration: none;
+    overflow: hidden;
+    z-index: 1;
 }
-
 .text-content-block-1 p{
     font-size: calc(16px + 20 * (100vw / 1920));
     color: #FFFFFF;
-    margin-top: 7vw;
     font-weight: bold;
 }
 

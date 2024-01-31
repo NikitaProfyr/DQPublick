@@ -24,7 +24,6 @@ const QuizDetail = () => {
     setIsLoading(false)
   }, [quiz])
 
-  console.log(quiz);
 
   return (
     <div className="bg-quiz-detail d-flex align-items-center">

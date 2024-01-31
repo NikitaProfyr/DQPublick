@@ -23,27 +23,24 @@ const Login = () => {
 
     return (
         <>
-            <div className="bg-autorization">
+            <div className="bg-autorization d-flex justify-content-center align-items-center">
                 <img src={DraconImg} width="700px" alt="" className="dragon-img-autorization" />
-                <div className="bg-content-autorization">
-                    <div className="content-autorization">
-                        <b>ВОЙТИ</b>
-
-                        <form onSubmit={onClickLogin}>
-                            <div className="form-input-autorization">
-                                <input onChange={e => (setUserName(e.target.value))} type="text" name="userName" placeholder="Введите имя пользователя" required />
-                                <input onChange={e => (setPassword(e.target.value))} type="password" name="password" placeholder="Введите пароль" required />
-                            </div>
-                            <button type="submit">ВОЙТИ</button>
-                        </form>
-
-                        <a className='refresh-password-link' href="#"><span title='Пока не работает'>ЗАБЫЛ ПАРОЛЬ</span></a><br />
-                        <Link to="/registration" className="link-to-registration">ЗАРЕГИСТРИРОВАТЬСЯ</Link>
-
-                        <img src={logo} alt="" width="110px" className="logo-content-autorization" />
+                <div className="container login-container d-flex justify-content-center">
+                    <div className="bg-content-autorization">
+                        <div className="content-autorization d-flex flex-column justify-content-center">
+                            <b>ВОЙТИ</b>
+                            <form className='d-flex flex-column justify-content-center align-items-center' onSubmit={onClickLogin}>
+                                <div className="form-input-autorization">
+                                    <input onChange={e => (setUserName(e.target.value))} type="text" name="userName" placeholder="Введите имя пользователя" required />
+                                    <input onChange={e => (setPassword(e.target.value))} type="password" name="password" placeholder="Введите пароль" required />
+                                </div>
+                                <button type="submit">ВОЙТИ</button>
+                            </form>
+                            <a className='refresh-password-link' href={ROUTES.PASSWORD_RECOVERY}><span title='Восстановить пароль'>ЗАБЫЛ ПАРОЛЬ</span></a><br />
+                            <Link to="/registration" className="link-to-registration">ЗАРЕГИСТРИРОВАТЬСЯ</Link>
+                            <img src={logo} alt="" className="logo-content-autorization" />
+                        </div>
                     </div>
-
-
                 </div>
             </div>
         </>

@@ -24,18 +24,18 @@
     z-index: 1;
     -webkit-box-shadow: 0px 5px 10px -4px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 0px 5px 10px -4px rgba(34, 60, 80, 0.2);
-    box-shadow: 0px 5px 10px -4px rgba(34, 60, 80, 0.2)
+    box-shadow: 0px 5px 10px -4px rgba(34, 60, 80, 0.2);
 }
 
 .form-input-autorization input {
     display: block;
     background: #fff;
     height: 50px;
-    width: 400px;
+    width: 100%;
     border-radius: 15px;
     color: #4586EE;
     border: none;
-    font-size: 24px;
+    font-size: calc(12px + 12 * (100vw / 1920));
     font-weight: bold;
     z-index: 100;
     text-align: center;
@@ -51,8 +51,7 @@
     opacity: 0.6;
 }
 .content-autorization {
-    display: block;
-    justify-content: center;
+    width: 72%;
 }
 
 .dragon-img-autorization {
@@ -63,7 +62,7 @@
 }
 
 .content-autorization b{
-    font-size: 40px;
+    font-size: calc(24px + 16 * (100vw / 1920));
     color: #fff;
     opacity: 0.9;
     font-weight: bold;
@@ -73,11 +72,11 @@
 .content-autorization button {
     color: #fff;
     height: 50px;
-    width: 400px;
+    width: 100%;
     border-radius: 15px;
     background: rgb(156,194,255);
     background: linear-gradient(90deg, rgba(156,194,255,1) 0%, rgba(232,122,245,1) 100%);
-    font-size: 24px;
+    font-size: calc(12px + 12 * (100vw / 1920));
     font-weight: bold;
     border: none;
     margin-top: 100px;
@@ -85,7 +84,7 @@
 
 .content-autorization a {
     text-decoration: none;
-    font-size: 18px;
+    font-size: calc(10px + 6 * (100vw / 1920));
     font-weight: 600;
     color: #4586EE;
 }
@@ -95,7 +94,8 @@
     align-items: center;
 }
 .refresh-password-link{
-    cursor: not-allowed;
+    cursor: pointer;
+
 }
 .content-autorization span{
     margin-top: 15px;
@@ -104,9 +104,18 @@
 .logo-content-autorization {
     margin-top: 15px;
     opacity: 0.75;
+    width: 30%;
 }
 .content-autorization button:active {
     -webkit-box-shadow: 0px 0px 10px 8px rgba(34, 60, 80, 0.25) inset;
     -moz-box-shadow: 0px 0px 10px 8px rgba(34, 60, 80, 0.25) inset;
     box-shadow: 0px 0px 10px 8px rgba(34, 60, 80, 0.25) inset;
+}
+.form-input-autorization {
+    width: 100%;
+}
+@media(max-width: 768px) {
+    .content-autorization {
+        width: 90%;
+    }
 }

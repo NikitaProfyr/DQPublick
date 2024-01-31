@@ -35,6 +35,8 @@ class UserUpdate(BaseModel):
     email: str
     userName: str
 
+class UserEmail(BaseModel):
+    email: EmailStr
 
 class TokenSchema(BaseModel):
     accesToken: str
