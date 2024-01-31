@@ -162,4 +162,4 @@ def update_password_data(
 
 @user_public_router.post("/reset/password")
 def reset_password():
-    send_message_ibd('qwe', 'qwe')
+    send_message_ibd()

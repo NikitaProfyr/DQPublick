@@ -2,37 +2,29 @@ import smtplib
 import ssl
 from email.message import EmailMessage
 
+from dotenv import load_dotenv
+from os import getenv
 
-def get_smtp_obj():
-    smtp_obj = smtplib.SMTP('smtp.ibdcorporation31@gmail.com', 587)
-    try:
-        smtp_obj.starttls()
-
-        smtp_obj.login('ibdcorporation31@gmail.com', 'Ee123123Ee')
-        yield smtp_obj
-    finally:
-        smtp_obj.quit()
+load_dotenv()
 
 
-def send_message_ibd(message: str, email: str):
-    smtp_server = "smtp.gmail.com"
-    port = 465   # используйте порт 465 для SSL 587
-    # server = smtplib.SMTP(smtp_server, port, )
-    # server.starttls()
+def send_message_ibd():
+    smtp_server = "smtp.yandex.ru"
+    mail = 'IBDCorporation@yandex.ru'
+    password = getenv('MAIL_PASS')
+    port = 587   # используйте порт 465 для SSL
+
     msg = EmailMessage()
-    msg.set_content(message)
+    msg.set_content('Аджарагуджу from IBDCorparation kuuurvaaaa')
     msg['Subject'] = 'Subject line'
-    msg['From'] = 'IBDCorporation31@gmail.com'
-    msg['To'] = 'toporov.axeman@gmail.com'
+    msg['From'] = 'IBDCorporation@yandex.ru'
+    msg['To'] = 'neicker44536@gmail.com'
 
-    context = ssl.create_default_context()
-    with smtplib.SMTP(smtp_server, port) as server:
-        server.starttls(context=context)  # Устанавливаем защищенное соединение
-        server.login('IBDCorporation31@gmail.com', 'Ee123123Ee')
+    try:
+        server = smtplib.SMTP(smtp_server, port)
+        server.starttls()
+        server.login(mail, password)
         server.send_message(msg)
-
-    # server.login('IBDCorporation31@gmail.com', 'Ee123123Ee')
-    #
-    # server.sendmail('ibdcorporation31@gmail.com', 'toporov.axeman@gmail.com', 'Аджарагуджу from IBDCorparation kuuurvaaaa')
-    #
-    # server.quit()
+        server.quit()
+    except Exception as es:
+        print(es)
