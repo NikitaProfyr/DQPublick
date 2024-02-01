@@ -1,5 +1,5 @@
 import smtplib
-
+import random, string
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -18,7 +18,9 @@ from model.UserSchema import UserEmail
 
 load_dotenv()
 
-html_content = """
+
+def get_html(rndstr):
+    return f"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,26 +28,26 @@ html_content = """
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Восстановление</title>
   <style>
-    body {
+    body {{
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       padding: 20px;
-    }
-    .container {
+    }}
+    .container {{
       max-width: 600px;
       margin: 0 auto;
       background-color: #ffffff;
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
+    }}
+    h1 {{
       color: #ff4d94;
-    }
-    p {
+    }}
+    p {{
       color: #333333;
-    }
-    a {
+    }}
+    a {{
       display: inline-block;
       padding: 10px 20px;
       margin-top: 20px;
@@ -53,25 +55,25 @@ html_content = """
       color: #ffffff;
       background-color: #4da6ff;
       border-radius: 5px;
-    }
-    img {
+    }}
+    img {{
       max-width: 100%;
       height: auto;
       display: block;
       margin: 20px auto;
-    }
+    }}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Восстановление</h1>
     <p>Для восстановления пароля перейдите по следующей ссылке:</p>
-    <a href="#">Восстановить пароль</a>
-    <img src="IBDnew.svg" alt="логотип">
+    <a href="http://localhost:3000/change-password/{rndstr}">Восстановить пароль</a>
   </div>
 </body>
 </html>
 """
+
 
 def send_message_ibd(email: UserEmail, db: Session = Depends(get_db)):
 
@@ -82,6 +84,9 @@ def send_message_ibd(email: UserEmail, db: Session = Depends(get_db)):
             detail="Пользователя с данной почтой не существует."
         )
     else:
+        rndstr = generate_rndstr()
+        user.rndstr = rndstr
+        db.commit()
         smtp_server = "smtp.yandex.com"
         mail = 'IBDCorporation@yandex.com'
         password = getenv('MAIL_PASS')
@@ -96,6 +101,7 @@ def send_message_ibd(email: UserEmail, db: Session = Depends(get_db)):
             server = smtplib.SMTP(smtp_server, port, timeout=10)
             server.starttls()
             server.login(mail, password)
+            html_content = get_html(rndstr)
             msg.attach(MIMEText(html_content, 'html'))
             server.send_message(msg, from_addr='IBDCorporation@yandex.com', to_addrs=f'{email.email}')
             server.quit()
@@ -103,3 +109,7 @@ def send_message_ibd(email: UserEmail, db: Session = Depends(get_db)):
             print(es)
     return HTTP_200_OK
 
+
+def generate_rndstr():
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for i in range(31))

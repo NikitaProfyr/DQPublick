@@ -45,3 +45,7 @@ class TokenSchema(BaseModel):
 class UpdatePasswordSchema(BaseModel):
     oldPassword: str
     newPassword: str
+
+class ChangePasswordSchema(BaseModel):
+    password: str
+    rndstr: str

@@ -10,6 +10,7 @@ class User(Base):
     email = Column(String, nullable=True, unique=True)
     hashedPassword = Column(String)
     userName = Column(String, unique=True)
+    rndstr = Column(String, unique=True)
 
     Token = relationship("Token", back_populates="User", cascade="all, delete")
     quiz = relationship("Quiz", backref="User")

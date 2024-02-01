@@ -12,6 +12,7 @@ export const ROUTES = {
     QUIZ_CREATE: "/quiz-create",
     QUIZ_GAME: "/quiz-game",
     ABOUT_US: "/about-us",
-    PASSWORD_RECOVERY: "/password-recovery"
+    PASSWORD_RECOVERY: "/password-recovery",
+    CHANGE_PASSWORD: "/change-password" + "/:rndstr",
 } 
 

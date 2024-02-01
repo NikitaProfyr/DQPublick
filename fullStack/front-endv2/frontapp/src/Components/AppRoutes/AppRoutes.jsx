@@ -9,7 +9,7 @@ import QuizListPage from '../../Page/QuizListPage'
 import UserSetingPage from '../../Page/UserSetingPage'
 import RegistrationPage from '../../Page/RegistrationPage'
 import PasswordRecoveryPage from '../../Page/PasswordRecoveryPage'
-
+import ChangePasswordPage from '../../Page/ChangePasswordPage'
 import { ROUTES } from '../../utils/routes'
 import QuizDetailPage from '../../Page/QuizDetailPage'
 import QuizUserPage from '../../Page/QuizUserPage'
@@ -35,6 +35,10 @@ const PublicRoutes = [
   {
     path: ROUTES.PASSWORD_RECOVERY,
     Component: <PasswordRecoveryPage/>
+  },
+  {
+    path: ROUTES.CHANGE_PASSWORD,
+    Component: <ChangePasswordPage/>
   },
 ]
 

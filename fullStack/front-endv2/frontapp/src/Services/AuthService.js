@@ -85,4 +85,15 @@ export default class AuthService {
         ))
         return data    
     }
+    static changePassword = async (password, rndstr) => {
+        const Data = {
+            password: password,
+            rndstr: rndstr,
+        }
+        const { data } = Api.post('users/change/password', Data).catch((e) => (
+            alert(e.response.data.detail)
+        )).then((res) => (
+            alert("Пароль успешно изменён")
+        ))
+    }
 }

@@ -7,7 +7,7 @@ from jose import jwt, JWTError
 from sqlalchemy import select, update, delete, or_, and_
 from sqlalchemy.orm import Session
 from starlette import status
-from starlette.status import HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED, HTTP_200_OK
+from starlette.status import HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED, HTTP_200_OK, HTTP_404_NOT_FOUND
 
 from model.Settings import get_db
 from model.User import User, Token
@@ -16,7 +16,7 @@ from model.UserSchema import (
     UserCreate,
     UserUpdate,
     UserId,
-    UpdatePasswordSchema,
+    UpdatePasswordSchema, ChangePasswordSchema,
 )
 from security import pwdContext, SECRET_KEY, ALGORITHM, oauth2Scheme
 
@@ -198,5 +198,18 @@ def update_password(
             status_code=HTTP_401_UNAUTHORIZED, detail="Не правильный пароль"
         )
     user.hashedPassword = pwdContext.hash(user_data.newPassword)
+    db.commit()
+    return HTTP_200_OK
+
+
+def update_password_by_email(change_data: ChangePasswordSchema, db: Session = Depends(get_db)):
+    user = db.scalar(select(User).where(or_(User.rndstr == change_data.rndstr)))
+    if not user:
+        raise HTTPException(
+            status_code=HTTP_404_NOT_FOUND,
+            detail="Ссылка не действительна"
+        )
+    user.hashedPassword = pwdContext.hash(change_data.password)
+    user.rndstr = None
     db.commit()
     return HTTP_200_OK
