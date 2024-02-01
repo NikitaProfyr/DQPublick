@@ -31,6 +31,30 @@ class QuizSchema(QuizBaseSchema):
     question: List[QuestionSchema]
 
 
+class AnswerGameSchema(BaseModel):
+    id: int
+    title: str
+
+
+class QuestionGameSchema(BaseModel):
+    id: int
+    title: str
+    answer: List[AnswerGameSchema]
+
+
+class QuizGameSchema(QuizBaseSchema):
+    id: int
+    title: str
+    description: str
+    image: str
+    question: List[QuestionGameSchema]
+
+
+class GameResponseSchema(BaseModel):
+    quiz: QuizGameSchema
+    count_right_answer: list
+
+
 class QuizResult(BaseModel):
     id: int
     userId: int

@@ -4,7 +4,7 @@ import os
 
 from fastapi_pagination import add_pagination
 from fastapi_pagination.ext.sqlalchemy import paginate
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session, joinedload, selectinload, Load
 from starlette import status
 
 from model.QuizSchema import QuestionSchema, QuizSchema, AnswerSchema
@@ -113,7 +113,9 @@ def select_quiz(db: Session = Depends(get_db)):
 
 
 def select_current_quiz(id_quiz: int, db: Session = Depends(get_db)):
-    current_quiz = db.scalar(select(Quiz).where(Quiz.id == id_quiz))
+    current_quiz = db.scalar(select(Quiz).where(or_(Quiz.id == id_quiz)))
+    for i in current_quiz.question:
+        print(i.count_right_answer(db))
     if not current_quiz:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -121,6 +123,19 @@ def select_current_quiz(id_quiz: int, db: Session = Depends(get_db)):
         )
     return current_quiz
 
+
+def select_current_quiz_without_right_answer(id_quiz: int, db: Session = Depends(get_db)):
+    current_quiz = db.query(Quiz)\
+        .options(joinedload(Quiz.question).joinedload(Question.answer).defer(Answer.right)).where(or_(Quiz.id == id_quiz)).first()
+    # for i in current_quiz.question:
+    #     print(i.count_right_answer(db))
+    # current_quiz = db.scalar(select(Quiz).where(or_(Quiz.id == id_quiz)))
+    count_right_answer = [count.count_right_answer(db) for count in current_quiz.question]
+    print(count_right_answer)
+    return {
+        'quiz': current_quiz,
+        'count_right_answer': [count_right_answer]
+    }
 
 def select_user_quiz(request: Request, db: Session = Depends(get_db)):
     id_user = get_user_id_by_token(request=request, db=db)

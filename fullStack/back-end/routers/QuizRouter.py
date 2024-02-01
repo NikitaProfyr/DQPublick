@@ -1,10 +1,12 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, UploadFile, File, Form, Request
 from fastapi_cache.decorator import cache
 from sqlalchemy.orm import Session
 from starlette.responses import FileResponse
 
 from middleware.Token import CheckAuthMiddleware
-from model.QuizSchema import QuizSchema, QuizBaseSchema, QuizResult
+from model.QuizSchema import QuizSchema, QuizBaseSchema, QuizResult, QuizGameSchema, GameResponseSchema
 from model.Settings import get_db
 from services.Quiz import (
     select_current_quiz,
@@ -16,7 +18,7 @@ from services.Quiz import (
     select_quiz,
     create_quiz_results,
     select_quiz_results_user,
-    create_quiz,
+    create_quiz, select_current_quiz_without_right_answer,
 )
 
 from fastapi_pagination import Page
@@ -40,6 +42,12 @@ def get_current_quiz(id_quiz: int, db: Session = Depends(get_db)) -> QuizSchema:
     return select_current_quiz(id_quiz=id_quiz, db=db)
 
 
+@quiz_private_router.get("/get-quiz-game/{id_quiz:int}")
+def get_current_quiz_game(id_quiz: int, db: Session = Depends(get_db)) -> GameResponseSchema:
+    """Получить конкретный опрос без обозначения правильности ответа"""
+    return select_current_quiz_without_right_answer(id_quiz=id_quiz, db=db)
+
+
 @quiz_private_router.get("/getquizuser", response_model=Page[QuizBaseSchema])
 def get_user_quiz(
     request: Request, db: Session = Depends(get_db)
@@ -58,6 +66,11 @@ def get_result_quiz_user(request: Request, db: Session = Depends(get_db)):
 def get_quiz_image(url_image: str):
     """Получить файл с изображением по путю"""
     return url_image
+
+
+@quiz_private_router.post('/check/quiz')
+def check_quiz():
+    pass
 
 
 @quiz_private_router.post("/create-result")

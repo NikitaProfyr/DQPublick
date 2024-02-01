@@ -5,6 +5,10 @@ export class QuizService {
         const { data } = await Api.get(`quiz/quiz-list?page=${page}&size=${size}`)
         return data
     }
+    static getCurrentQuizGame = async (idQuiz) => {
+        const { data } = await Api.get(`quiz/get-quiz-game/${idQuiz}`)
+        return data
+    }
     static getCurrentQuiz = async (idQuiz) => {
         const { data } = await Api.get(`quiz/get-quiz/${idQuiz}`)
         return data

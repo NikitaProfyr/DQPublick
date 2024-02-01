@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Spinner } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getCurrentQuiz } from '../../Feutures/Actions/actionQuiz'
+import { getCurrentQuizGameAction } from '../../Feutures/Actions/actionQuiz'
 import './quiz-game.css'
 import { QuizService } from '../../Services/QuizService'
 import { ROUTES } from '../../utils/routes'
@@ -23,7 +23,7 @@ const QuizGame = () => {
 
 
     useEffect(() => {
-        getCurrentQuiz(param.id, dispatch)
+        getCurrentQuizGameAction(param.id, dispatch)
     }, [dispatch, param.id])
 
     useEffect(() => {
@@ -31,21 +31,7 @@ const QuizGame = () => {
     }, [quiz])
 
     const onSubmitQuestion = async () => {
-        setAnswerUser(answersUser.filter(item => item.right === false))
-        answersUser.map((item) => {
-
-            if (item.right === true) {
-                userAnswerRight.push(item)
-            }
-
-        })
-        let allRightAnswer = 0
-        quiz.question.map((item) => {
-            allRightAnswer = allRightAnswer + item.answer.filter(i => i.right === true).length
-        })
-
-        await QuizService.createQuizResults(quiz.id, Math.floor(((userAnswerRight.length / allRightAnswer) * 100) * (userAnswerRight.length / answersUser.length)))
-        return navigate(ROUTES.QUIZ_LIST)
+        console.log(answersUser);
     }
 
     const onClickAnswer = (answer) => {
@@ -92,7 +78,8 @@ const QuizGame = () => {
                                     <div className="col-6"></div>
                                     <div onClick={() => (setStep(step + 1))} className="d-flex flex-column justify-content-center align-items-center col-md-6 col-12"> <div className="button-question next">Следующий вопрос</div> </div>
 
-                                </> :
+                                </> 
+                                :
                                 <>
                                     <div onClick={() => (setStep(step - 1))} className="d-flex flex-column justify-content-center align-items-center col-md-6 col-12"><div className="button-question end">Предыдущий опрос</div></div>
                                     {step + 1 === quiz.question.length ?

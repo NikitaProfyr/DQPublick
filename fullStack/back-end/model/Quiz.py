@@ -1,6 +1,8 @@
-from model.Settings import Base
-from sqlalchemy import Column, ForeignKey, Integer, String, BOOLEAN
-from sqlalchemy.orm import relationship
+from fastapi import Depends
+
+from model.Settings import Base, get_db
+from sqlalchemy import Column, ForeignKey, Integer, String, BOOLEAN, func, and_
+from sqlalchemy.orm import relationship, Session
 
 
 class Answer(Base):
@@ -39,6 +41,14 @@ class Question(Base):
         cascade="all, delete",
         overlaps="Question.answer",
     )
+
+
+    def count_right_answer(self, db: Session = Depends(get_db)):
+        return (
+            db.query(func.count(Answer.id))
+            .filter(and_(Answer.questionId == self.id, Answer.right == True))
+            .scalar()
+        )
 
 
 class Quiz(Base):
