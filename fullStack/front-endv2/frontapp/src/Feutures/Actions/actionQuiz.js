@@ -1,5 +1,5 @@
 import { QuizService } from "../../Services/QuizService"
-import { GET_CURRENT_QUIZ, GET_QUIZ, GET_QUIZ_USER, CREATE_QUIZ, UPDATE_CURRENT_QUIZ, BaseCurrentQuiz, GET_QUIZ_RESULT, CLEAR_QUIZ } from "../Reducers/reducerQuiz"
+import { GET_COUNT_RIGHT_ANSWER, GET_CURRENT_QUIZ, GET_QUIZ, GET_QUIZ_USER, CREATE_QUIZ, UPDATE_CURRENT_QUIZ, BaseCurrentQuiz, GET_QUIZ_RESULT, CLEAR_QUIZ } from "../Reducers/reducerQuiz"
 
  
 
@@ -17,6 +17,11 @@ export const getCurrentQuiz = async (idQuiz, dispatch) => {
 export const getCurrentQuizGameAction = async (idQuiz, dispatch) => {
     const data = await QuizService.getCurrentQuizGame(idQuiz)
     dispatch({type: GET_CURRENT_QUIZ, payload: data.quiz})
+}
+
+export const getCountRightAnswerGameAction = async (idQuiz, dispatch) => {
+    const data = await QuizService.getCurrentQuizGame(idQuiz)
+    dispatch({type: GET_COUNT_RIGHT_ANSWER, payload: data.count_right_answer})
 }
 
 export const getUserQuiz = async (dispatch, page, size) => {

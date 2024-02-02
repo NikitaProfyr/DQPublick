@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Spinner } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getCurrentQuizGameAction } from '../../Feutures/Actions/actionQuiz'
+import { getCurrentQuizGameAction, getCountRightAnswerGameAction } from '../../Feutures/Actions/actionQuiz'
 import './quiz-game.css'
 import { QuizService } from '../../Services/QuizService'
 import { ROUTES } from '../../utils/routes'
@@ -16,19 +16,20 @@ const QuizGame = () => {
     const navigate = useNavigate()
     const user = useSelector(state => state.reducerUser.userInfo)
     const quiz = useSelector(state => state.reducerQuiz.currentQuiz)
+    const countRightAnswer = useSelector(state => state.reducerQuiz.countRightAnswer)
     const dispatch = useDispatch()
     const [step, setStep] = useState(0)
     const [answersUser, setAnswerUser] = useState([])
     const [userAnswerRight, setUserAnswerRight] = useState([])
 
-
     useEffect(() => {
         getCurrentQuizGameAction(param.id, dispatch)
+        getCountRightAnswerGameAction(param.id, dispatch)
     }, [dispatch, param.id])
 
     useEffect(() => {
         setIsLoading(false)
-    }, [quiz])
+    }, [quiz, countRightAnswer])
 
     const onSubmitQuestion = async () => {
         console.log(answersUser);
