@@ -27,24 +27,62 @@ const QuizGame = () => {
         getCountRightAnswerGameAction(param.id, dispatch)
     }, [dispatch, param.id])
 
+    useEffect(() =>{
+        quiz.question.forEach(item => {
+            if(item.id !== undefined){
+                setAnswerUser(prevAnswers => {
+                    const isDuplicate = prevAnswers.some(existingItem => 
+                        existingItem.id === item.id && existingItem.title === item.title
+                    );
+                    if (!isDuplicate) {
+                        return [
+                            ...prevAnswers,
+                            {
+                                id: item.id,
+                                title: item.title,
+                                answer: []
+                            }
+                        ];
+                    }
+                    return prevAnswers;
+              });
+            }    
+            }
+        );
+    },[quiz])
+
     useEffect(() => {
-        setIsLoading(false)
+        if (answersUser[1] && answersUser[1].answer !== undefined) {
+            setIsLoading(false);
+        }
+        
     }, [quiz, countRightAnswer])
 
     const onSubmitQuestion = async () => {
         console.log(answersUser);
     }
 
-    const onClickAnswer = (answer) => {
-        if (answersUser.includes(answer) === false) {
-            answersUser.push(answer)
-        }
-        else {
-            const index = answersUser.indexOf(answer)
-            delete answersUser[index]
-
-        }
-        setAnswerUser(answersUser.filter(item => item !== null))
+    const onClickAnswer = (step, answer) => {
+        console.log(answersUser[step].answer.length);
+        console.log(countRightAnswer[0][step]);
+        const updatedAnswers = answersUser.map((item, index) => {
+            if (index === step) {
+                if (!item.answer.includes(answer)) {
+                    return {
+                        ...item,
+                        answer: [...item.answer, answer]
+                    };
+                } else {
+                    return {
+                        ...item,
+                        answer: item.answer.filter(a => a !== answer)
+                    };
+                }
+            }
+            return item;
+        });
+        setAnswerUser(updatedAnswers);
+        console.log(updatedAnswers);
     }
 
     return (
@@ -61,15 +99,19 @@ const QuizGame = () => {
                         </div>
                         <h2 className='title-question-quiz-game mt-5'>{quiz.question[step].title}</h2>
                         <div className="row">
+                            
                             {quiz.question[step].answer.map((item, index) => (
-                                answersUser.includes(item) === false ?
-                                    <div className="d-flex flex-column justify-content-center align-items-center col-md-6 col-12 ">
-                                        <div className='answer-game' key={index} onClick={() => (onClickAnswer(item))}>{index + 1}) {item.title}</div>
-                                    </div>
-                                    :
-                                    <div className="d-flex flex-column justify-content-center align-items-center col-md-6 col-12 ">
-                                        <div className='answer-game active' key={index} onClick={() => (onClickAnswer(item))}>{index + 1}) {item.title}</div>
-                                    </div>
+                                <div className="d-flex flex-column justify-content-center align-items-center col-md-6 col-12 ">
+                                    <div className={answersUser[step].answer.includes(item) === false ? 'answer-game':'answer-game active'} key={index} onClick={() => (onClickAnswer(step, item))}>{index + 1}) {item.title}</div>
+                                </div>  
+                                // answersUser[step].answer.includes(item) === false ?
+                                //     <div className="d-flex flex-column justify-content-center align-items-center col-md-6 col-12 ">
+                                //         <div className='answer-game' key={index} onClick={() => (onClickAnswer(step, item))}>{index + 1}) {item.title}</div>
+                                //     </div>
+                                //     :
+                                //     <div className="d-flex flex-column justify-content-center align-items-center col-md-6 col-12 ">
+                                //         <div className='answer-game active' key={index} onClick={() => (onClickAnswer(step, item))}>{index + 1}) {item.title}</div>
+                                //     </div>
                             ))}
                         </div>
                         <div className="row lil-uzi">

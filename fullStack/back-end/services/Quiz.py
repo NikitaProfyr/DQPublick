@@ -137,6 +137,7 @@ def select_current_quiz_without_right_answer(id_quiz: int, db: Session = Depends
         'count_right_answer': [count_right_answer]
     }
 
+
 def select_user_quiz(request: Request, db: Session = Depends(get_db)):
     id_user = get_user_id_by_token(request=request, db=db)
     query = select(Quiz).where(or_(Quiz.authorId == id_user)).order_by(Quiz.id)

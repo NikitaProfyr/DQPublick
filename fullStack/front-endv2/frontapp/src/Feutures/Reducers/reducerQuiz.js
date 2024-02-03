@@ -62,6 +62,7 @@ const stateQuiz = {
             answer:[]
         }]
     },
+    currentQuizGame: {},
     quizResults: [],
     countRightAnswer: []
 }
