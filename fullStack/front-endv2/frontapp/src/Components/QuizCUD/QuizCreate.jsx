@@ -88,18 +88,31 @@ const QuizCreate = () => {
     dispatch(addQuestionAction(quiz))
 
   }
-  const addImage = (e) => {
-
-    console.log(e.target.files[0]);
+  
+  let previousFileSize = 0;
+  let previousFile = null;
+  
+  const addImage = async (e) => {
+    const maxFileSizeMB = 5;
+    const file = e.target.files[0];
+    
+    if (previousFile === file && previousFileSize === file.size) {
+      return alert("Вы уже выбрали этот файл");
+    }
+    
+    if (file && file.size > maxFileSizeMB * 1024 * 1024){
+      return alert("Файл должен весить менее 5 МБ")
+    }
+  
+    previousFileSize = file.size;
+    previousFile = file;
+  
     const formData = new FormData();
-    formData.append('image', e.target.files[0])
-    // quiz.image = formData.get('file')
-    quiz.image = formData
-    // console.log(formData.get('file'));
-    // console.log(quiz.image);
-    dispatch(addQuestionAction(quiz))
-    // console.log(quiz);
+    formData.append('image', file);
+    quiz.image = formData;
+    dispatch(addQuestionAction(quiz));
   }
+  
   const addQuiz = async (e) => {
     e.preventDefault()
 

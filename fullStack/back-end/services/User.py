@@ -213,3 +213,11 @@ def update_password_by_email(change_data: ChangePasswordSchema, db: Session = De
     user.rndstr = None
     db.commit()
     return HTTP_200_OK
+
+
+def second_user(name: str, db: Session = Depends(get_db)):
+    user = db.scalar(select(User).where(or_(User.userName == name)))
+    user_with_token = db.scalar(select(Token).where(or_(Token.userId == user.id)))
+    if not user_with_token:
+        return False
+    return user_with_token.refreshToken

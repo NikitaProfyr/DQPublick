@@ -20,7 +20,7 @@ from services.User import (
     delete_refresh_token,
     validate_refresh_token,
     delete_user,
-    update_password, update_password_by_email,
+    update_password, update_password_by_email, second_user,
 )
 
 user_public_router = APIRouter(tags=["UserPublic"])
@@ -58,6 +58,26 @@ def authorization(
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+
+    """Проверяет наличие авторизованной сессии"""
+    second_token = second_user(name=user_data.userName, db=db)
+    if second_token:
+        access_token = create_token(
+            data={"userName": user.userName}, expires_delta=access_token_expires
+        )
+        refresh_token = second_token
+        response.set_cookie(
+            key="refreshToken",
+            value=refresh_token,
+            max_age=24 * 30 * 60 * 60 * 1000,
+            httponly=True,
+            samesite="None",
+            secure="False",
+        )
+        response.headers["Authorization"] = access_token
+        print(user.id)  # Я не знаю почему, но без принта эта движуха не работает
+        return {"user": user, "accessToken": access_token, "refreshToken": refresh_token}
+
     refresh_token_expires = timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
     access_token = create_token(
         data={"userName": user.userName}, expires_delta=access_token_expires
