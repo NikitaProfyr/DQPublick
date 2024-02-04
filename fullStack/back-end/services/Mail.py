@@ -37,9 +37,6 @@ def get_html(rndstr):
         h1 {{
             color: #1e90ff; /* Голубой цвет заголовка */
         }}
-        p {{
-            color: #fff; /* Белый цвет текста */
-        }}
         a {{
             color: #1e90ff; /* Голубая ссылка */
             text-decoration: none;

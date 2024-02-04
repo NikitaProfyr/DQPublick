@@ -5,6 +5,7 @@ from fastapi_cache.backends.redis import RedisBackend
 from fastapi_cache import FastAPICache
 from redis import asyncio as aioredis
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
 
 from routers.UserRouter import user_public_router, user_private_router
 from routers.QuizRouter import quiz_private_router, quiz_public_router
@@ -12,6 +13,8 @@ from dotenv import load_dotenv
 from os import getenv
 
 from fastapi_pagination import add_pagination
+
+from security import SECRET_KEY
 
 load_dotenv()
 
@@ -73,13 +76,41 @@ app.add_middleware(
 # Admin
 
 from sqladmin import Admin, ModelView
-from model.Settings import engine
+from model.Settings import engine, get_db
 from model.User import User
 from sqladmin.authentication import AuthenticationBackend
 from starlette.requests import Request
 from starlette.responses import RedirectResponse
 
-admin = Admin(app, engine)
+
+class AdminAuth(AuthenticationBackend):
+    async def login(self, request: Request, db: Session = Depends(get_db)) -> bool:
+        form = await request.form()
+        username, password = form["username"], form["password"]
+
+        # Validate username/password credentials
+        # And update session
+        request.session.update({"token": "..."})
+
+        return True
+
+    async def logout(self, request: Request) -> bool:
+        # Usually you'd want to just clear the session
+        request.session.clear()
+        return True
+
+    async def authenticate(self, request: Request) -> bool:
+        token = request.session.get("token")
+
+        if not token:
+            return False
+
+        # Check the token in depth
+        return True
+
+
+authentication_backend = AdminAuth(secret_key=SECRET_KEY)
+admin = Admin(app=app, authentication_backend=authentication_backend)
 
 
 class UserAdmin(ModelView, model=User):

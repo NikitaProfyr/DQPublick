@@ -1,6 +1,6 @@
 from sqlalchemy.orm import relationship
 from model.Settings import Base
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 
 
 class User(Base):
@@ -10,6 +10,7 @@ class User(Base):
     email = Column(String, nullable=True, unique=True)
     hashedPassword = Column(String)
     userName = Column(String, unique=True)
+    isAdmin = Column(Boolean, nullable=True, default=None)
     rndstr = Column(String, unique=True)
 
     Token = relationship("Token", back_populates="User", cascade="all, delete")
