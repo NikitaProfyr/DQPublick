@@ -214,3 +214,17 @@
 .input-cud {
     height: 5vh;
 }
+.carousel-control-next-icon {
+    background-color: #90B1E6; /* Замените на цвет, который вы хотите использовать */
+    border-radius: 5px;
+}
+.carousel-control-next-icon:hover{
+    background-color: #DD90E6 
+}
+.carousel-control-prev-icon{
+    background-color: #90B1E6; /* Замените на цвет, который вы хотите использовать */
+    border-radius: 5px;
+}
+.carousel-control-prev-icon:hover{
+    background-color: #DD90E6 
+}

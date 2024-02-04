@@ -6,7 +6,8 @@ from sqlalchemy.orm import Session
 from starlette.responses import FileResponse
 
 from middleware.Token import CheckAuthMiddleware
-from model.QuizSchema import QuizSchema, QuizBaseSchema, QuizResult, QuizGameSchema, GameResponseSchema
+from model.QuizSchema import QuizSchema, QuizBaseSchema, QuizResult, QuizGameSchema, GameResponseSchema, \
+    QuestionGameSchema
 from model.Settings import get_db
 from services.Quiz import (
     select_current_quiz,
@@ -18,7 +19,7 @@ from services.Quiz import (
     select_quiz,
     create_quiz_results,
     select_quiz_results_user,
-    create_quiz, select_current_quiz_without_right_answer,
+    create_quiz, select_current_quiz_without_right_answer, check_answers_user,
 )
 
 from fastapi_pagination import Page
@@ -68,9 +69,11 @@ def get_quiz_image(url_image: str):
     return url_image
 
 
-@quiz_private_router.post('/check/quiz')
-def check_quiz():
-    pass
+@quiz_private_router.post('/check/{quiz_id:int}')
+def check_quiz(data: List[QuestionGameSchema], quiz_id: int, request: Request, db: Session = Depends(get_db)):
+
+    result = check_answers_user(data=data, db=db)
+    return create_quiz_results(request=request, quiz_id=quiz_id, result=result, db=db)
 
 
 @quiz_private_router.post("/create-result")

@@ -60,11 +60,12 @@ const QuizGame = () => {
 
     const onSubmitQuestion = async () => {
         console.log(answersUser);
+        QuizService.checkQuizUser(answersUser, quiz.id).then((res) => {
+            return navigate(ROUTES.QUIZ_USER)
+        })
     }
 
     const onClickAnswer = (step, answer) => {
-        console.log(answersUser[step].answer.length);
-        console.log(countRightAnswer[0][step]);
         const updatedAnswers = answersUser.map((item, index) => {
             if (index === step) {
                 if (!item.answer.includes(answer)) {
@@ -82,7 +83,7 @@ const QuizGame = () => {
             return item;
         });
         setAnswerUser(updatedAnswers);
-        console.log(updatedAnswers);
+        // console.log(updatedAnswers);
     }
 
     return (
@@ -104,14 +105,6 @@ const QuizGame = () => {
                                 <div className="d-flex flex-column justify-content-center align-items-center col-md-6 col-12 ">
                                     <div className={answersUser[step].answer.includes(item) === false ? 'answer-game':'answer-game active'} key={index} onClick={() => (onClickAnswer(step, item))}>{index + 1}) {item.title}</div>
                                 </div>  
-                                // answersUser[step].answer.includes(item) === false ?
-                                //     <div className="d-flex flex-column justify-content-center align-items-center col-md-6 col-12 ">
-                                //         <div className='answer-game' key={index} onClick={() => (onClickAnswer(step, item))}>{index + 1}) {item.title}</div>
-                                //     </div>
-                                //     :
-                                //     <div className="d-flex flex-column justify-content-center align-items-center col-md-6 col-12 ">
-                                //         <div className='answer-game active' key={index} onClick={() => (onClickAnswer(step, item))}>{index + 1}) {item.title}</div>
-                                //     </div>
                             ))}
                         </div>
                         <div className="row lil-uzi">

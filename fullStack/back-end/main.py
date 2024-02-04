@@ -69,3 +69,21 @@ app.add_middleware(
     allow_methods=["POST", "GET", "DELETE", "PUT"],  # Разрешить любые HTTP-методы
     allow_headers=["*"],  # Разрешить любые заголовки
 )
+
+# Admin
+
+from sqladmin import Admin, ModelView
+from model.Settings import engine
+from model.User import User
+from sqladmin.authentication import AuthenticationBackend
+from starlette.requests import Request
+from starlette.responses import RedirectResponse
+
+admin = Admin(app, engine)
+
+
+class UserAdmin(ModelView, model=User):
+    column_list = [User.id, User.userName]
+
+
+admin.add_view(UserAdmin)

@@ -60,3 +60,4 @@ class QuizResult(BaseModel):
     userId: int
     result: int
     quiz: QuizBaseSchema
+

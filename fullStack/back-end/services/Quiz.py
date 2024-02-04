@@ -1,13 +1,14 @@
 import shutil
 
 import os
+from typing import List
 
 from fastapi_pagination import add_pagination
 from fastapi_pagination.ext.sqlalchemy import paginate
 from sqlalchemy.orm import Session, joinedload, selectinload, Load
 from starlette import status
 
-from model.QuizSchema import QuestionSchema, QuizSchema, AnswerSchema
+from model.QuizSchema import QuestionSchema, QuizSchema, AnswerSchema, QuestionGameSchema, AnswerGameSchema
 from model.Quiz import Question, Quiz, Answer, QuizResults
 from model.Settings import get_db
 from sqlalchemy import select, delete, update, and_, asc, or_
@@ -70,6 +71,7 @@ def create_quiz_results(
 
     db.add(quiz)
     db.commit()
+    return HTTP_201_CREATED
 
 
 def delete_current_quiz(
@@ -127,14 +129,10 @@ def select_current_quiz(id_quiz: int, db: Session = Depends(get_db)):
 def select_current_quiz_without_right_answer(id_quiz: int, db: Session = Depends(get_db)):
     current_quiz = db.query(Quiz)\
         .options(joinedload(Quiz.question).joinedload(Question.answer).defer(Answer.right)).where(or_(Quiz.id == id_quiz)).first()
-    # for i in current_quiz.question:
-    #     print(i.count_right_answer(db))
-    # current_quiz = db.scalar(select(Quiz).where(or_(Quiz.id == id_quiz)))
     count_right_answer = [count.count_right_answer(db) for count in current_quiz.question]
-    print(count_right_answer)
     return {
         'quiz': current_quiz,
-        'count_right_answer': [count_right_answer]
+        'count_right_answer': count_right_answer
     }
 
 
@@ -193,3 +191,20 @@ def update_current_quiz(quiz_data: QuizSchema, db: Session = Depends(get_db)):
         create_question(id_quiz=quiz_data.id, question_data=item, db=db)
     db.execute(query)
     db.commit()
+
+
+def check_answers_user(data: List[QuestionGameSchema], db: Session = Depends(get_db)):
+    count_error = 0
+    for question in data:
+        answers_right = db.query(Answer).where(and_(Answer.questionId == question.id, Answer.right == True)).all()
+        answers_right_obj = [AnswerGameSchema(id=i.id, title=i.title) for i in answers_right]
+        if len(answers_right) != len(question.answer):
+            count_error += 1
+        else:
+            for answer_right in answers_right_obj:
+                if not(answer_right in question.answer):
+                    count_error += 1
+                    break
+    return round((1 - (count_error/len(data))) * 100)
+
+
