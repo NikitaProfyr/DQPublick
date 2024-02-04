@@ -24,52 +24,44 @@ def get_html(rndstr):
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Восстановление</title>
-  <style>
-    body {{
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      padding: 20px;
-    }}
-    .container {{
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }}
-    h1 {{
-      color: #ff4d94;
-    }}
-    p {{
-      color: #333333;
-    }}
-    a {{
-      display: inline-block;
-      padding: 10px 20px;
-      margin-top: 20px;
-      text-decoration: none;
-      color: #ffffff;
-      background-color: #4da6ff;
-      border-radius: 5px;
-    }}
-    img {{
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Восстановление пароля</title>
+    <style>
+        body {{
+            font-family: Montserrat, sans-serif;
+            background: rgb(191, 191, 191);
+           background: linear-gradient(135deg, rgba(191, 191, 191, 0.35) 0%, rgba(214, 90, 194, 0.3) 100%);
+            color: #fff; /* Белый цвет шрифта */
+        }}
+        h1 {{
+            color: #1e90ff; /* Голубой цвет заголовка */
+        }}
+        p {{
+            color: #fff; /* Белый цвет текста */
+        }}
+        a {{
+            color: #1e90ff; /* Голубая ссылка */
+            text-decoration: none;
+            transition: color 0.3s ease; /* Плавное изменение цвета при наведении */
+        }}
+        a:hover {{
+            color: #ff69b4; /* Розовый цвет при наведении */
+        }}
+        a:active {{
+            color: #ff4500; /* Оранжевый цвет при активации (нажатии) */
+        }}
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Восстановление</h1>
-    <p>Для восстановления пароля перейдите по следующей ссылке:</p>
-    <a href="http://localhost:3000/change-password/{rndstr}">Восстановить пароль</a>
-  </div>
+    <h1>Восстановление пароля</h1>
+    <p>Здравствуйте! Вы забыли свой пароль? Не волнуйтесь, мы поможем вам его восстановить.</p>
+    <p>Для этого перейдите по следующей ссылке:</p>
+    <a href="http://localhost:3000/change-password/{rndstr}">http://localhost:3000/change-password/{rndstr}</a>
+    <p>На странице восстановления пароля вам нужно будет ввести новый пароль и повторить его для подтверждения.</p>
+    <p>Если вы не запрашивали восстановление пароля, проигнорируйте это сообщение.</p>
+    <p>Если у вас возникли вопросы, свяжитесь с нашей службой поддержки.</p>
+    <p>С уважением, IBD Corporation</p>
 </body>
 </html>
 """
