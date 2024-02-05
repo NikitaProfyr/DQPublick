@@ -21,7 +21,7 @@ from model.UserSchema import (
 from security import pwdContext, SECRET_KEY, ALGORITHM, oauth2Scheme
 
 
-def get_user(db: Session, user_data: UserBase):
+def get_user(user_data: UserBase, db: Session = Depends(get_db)):
     user = db.scalar(select(User).where(or_(User.userName == user_data.userName)))
     if not user:
         raise HTTPException(
@@ -45,7 +45,7 @@ def create_user(db: Session, user_data: UserCreate):
     return user
 
 
-def authenticated(db: Session, user_data: UserCreate):
+def authenticated(user_data: UserCreate, db: Session = Depends(get_db)) -> User:
     user = get_user(db=db, user_data=user_data)
     if not user:
         raise HTTPException(

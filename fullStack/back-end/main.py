@@ -81,7 +81,7 @@ app.add_middleware(
 # Admin
 
 from sqladmin import Admin, ModelView
-from model.Settings import engine, get_db
+from model.Settings import engine, get_db, SessionLocal
 from model.User import User
 from sqladmin.authentication import AuthenticationBackend
 from starlette.requests import Request
@@ -89,18 +89,15 @@ from starlette.responses import RedirectResponse
 
 
 class AdminAuth(AuthenticationBackend):
-    async def login(self, request: Request, db: Session = Depends(get_db)) -> bool:
+    async def login(self, request: Request) -> bool:
         form = await request.form()
         username, password = form["username"], form["password"]
-
+        db = SessionLocal()
         user = authenticated(db=db, user_data=UserCreate(userName=username, password=password))
-        if not user or user.isAdmin == False:
+        print(user.isAdmin)
+        print(user.userName)
+        if not user or user.isAdmin is None or user.isAdmin is False:
             return False
-            # raise HTTPException(
-            #     status_code=HTTP_400_BAD_REQUEST,
-            #     detail="Некорректное имя пользователя или пароль",
-            #     headers={"WWW-Authenticate": "Bearer"},
-            # )
 
         access_token = create_token(data={"userName": user.userName})
         # Validate username/password credentials

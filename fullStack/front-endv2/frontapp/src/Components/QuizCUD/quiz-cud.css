@@ -222,7 +222,7 @@
     background-color: #DD90E6 
 }
 .carousel-control-prev-icon{
-    background-color: #90B1E6; /* Замените на цвет, который вы хотите использовать */
+    background-color: #90B1E6; 
     border-radius: 5px;
 }
 .carousel-control-prev-icon:hover{
