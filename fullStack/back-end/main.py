@@ -3,13 +3,13 @@ from http.client import HTTPException
 from fastapi import FastAPI, Request, Depends
 from fastapi_cache.backends.redis import RedisBackend
 
-
 from fastapi_cache import FastAPICache
 from redis import asyncio as aioredis
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_400_BAD_REQUEST
 
+from model.Quiz import Quiz, Question
 from model.UserSchema import UserCreate
 from routers.UserRouter import user_public_router, user_private_router
 from routers.QuizRouter import quiz_private_router, quiz_public_router
@@ -28,7 +28,6 @@ origins = [
     "http://localhost:3000/",
 ]
 
-
 app = FastAPI(
     title="IBD App",
     description="IBD Corporation - perfect, fast, cheap.",
@@ -36,7 +35,6 @@ app = FastAPI(
 )
 
 add_pagination(app)
-
 
 # регистрация роутеров
 
@@ -78,7 +76,9 @@ app.add_middleware(
     allow_headers=["*"],  # Разрешить любые заголовки
 )
 
+# ======================================================================
 # Admin
+# ======================================================================
 
 from sqladmin import Admin, ModelView
 from model.Settings import engine, get_db, SessionLocal
@@ -122,11 +122,22 @@ class AdminAuth(AuthenticationBackend):
 
 
 authentication_backend = AdminAuth(secret_key=SECRET_KEY)
-admin = Admin(app=app, authentication_backend=authentication_backend)
+admin = Admin(app=app, engine=engine, authentication_backend=authentication_backend)
 
 
 class UserAdmin(ModelView, model=User):
     column_list = [User.id, User.userName]
+    column_details_exclude_list = [User.hashedPassword, User.rndstr]
+
+
+class QuizAdmin(ModelView, model=Quiz):
+    column_list = [Quiz.id, Quiz.title]
+
+
+class QuestionAdmin(ModelView, model=Question):
+    column_list = [Question.id, Question.title]
 
 
 admin.add_view(UserAdmin)
+admin.add_view(QuizAdmin)
+admin.add_view(QuestionAdmin)
