@@ -16,6 +16,8 @@ class User(Base):
     Token = relationship("Token", back_populates="User", cascade="all, delete")
     quiz = relationship("Quiz", backref="User")
 
+    def __str__(self):
+        return f'{self.id} {self.userName}'
 
 class Token(Base):
     __tablename__ = "Token"

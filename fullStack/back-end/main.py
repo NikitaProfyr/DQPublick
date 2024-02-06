@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_400_BAD_REQUEST
 
-from model.Quiz import Quiz, Question
+from model.Quiz import Quiz, Question, Answer
 from model.UserSchema import UserCreate
 from routers.UserRouter import user_public_router, user_private_router
 from routers.QuizRouter import quiz_private_router, quiz_public_router
@@ -22,11 +22,6 @@ from security import SECRET_KEY
 from services.User import authenticated, create_token
 
 load_dotenv()
-
-origins = [
-    "http://localhost:3000",
-    "http://localhost:3000/",
-]
 
 app = FastAPI(
     title="IBD App",
@@ -70,7 +65,7 @@ async def startup_event():
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[getenv("SITE_HOST")],
     allow_credentials=True,  # Разрешить отправлять куки
     allow_methods=["POST", "GET", "DELETE", "PUT"],  # Разрешить любые HTTP-методы
     allow_headers=["*"],  # Разрешить любые заголовки
@@ -94,8 +89,6 @@ class AdminAuth(AuthenticationBackend):
         username, password = form["username"], form["password"]
         db = SessionLocal()
         user = authenticated(db=db, user_data=UserCreate(userName=username, password=password))
-        print(user.isAdmin)
-        print(user.userName)
         if not user or user.isAdmin is None or user.isAdmin is False:
             return False
 
@@ -127,17 +120,24 @@ admin = Admin(app=app, engine=engine, authentication_backend=authentication_back
 
 class UserAdmin(ModelView, model=User):
     column_list = [User.id, User.userName]
-    column_details_exclude_list = [User.hashedPassword, User.rndstr]
+    column_details_exclude_list = [User.hashedPassword, User.rndstr, User.Token]
+
 
 
 class QuizAdmin(ModelView, model=Quiz):
     column_list = [Quiz.id, Quiz.title]
 
 
+
 class QuestionAdmin(ModelView, model=Question):
     column_list = [Question.id, Question.title]
+
+
+class AnswerAdmin(ModelView, model=Answer):
+    column_list = [Answer.id, Answer.title]
 
 
 admin.add_view(UserAdmin)
 admin.add_view(QuizAdmin)
 admin.add_view(QuestionAdmin)
+admin.add_view(AnswerAdmin)

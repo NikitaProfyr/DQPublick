@@ -16,9 +16,12 @@ class Answer(Base):
     question = relationship(
         "Question",
         back_populates="answer",
-        cascade="all, delete",
+        cascade="save-update, merge, refresh-expire",
         overlaps="Answer.question",
     )
+
+    def __str__(self):
+        return f'{self.id} {self.title}'
 
 
 class Question(Base):
@@ -31,7 +34,7 @@ class Question(Base):
     quiz = relationship(
         "Quiz",
         back_populates="question",
-        cascade="all, delete",
+        cascade="save-update, merge, refresh-expire",
         overlaps="Question.quiz",
     )
 
@@ -41,6 +44,9 @@ class Question(Base):
         cascade="all, delete",
         overlaps="Question.answer",
     )
+
+    def __str__(self):
+        return f'{self.id} {self.title}'
 
 
     def count_right_answer(self, db: Session = Depends(get_db)):
@@ -62,11 +68,14 @@ class Quiz(Base):
     authorId = Column(Integer, ForeignKey("User.id", ondelete="CASCADE"))
 
     author = relationship(
-        "User", back_populates="quiz", cascade="all, delete", overlaps="User"
+        "User", back_populates="quiz", cascade="save-update, merge, refresh-expire", overlaps="User"
     )
     question = relationship(
         "Question", back_populates="quiz", cascade="all, delete", passive_deletes=True
     )
+
+    def __str__(self):
+        return f'{self.id} {self.title}'
 
 
 class QuizResults(Base):
