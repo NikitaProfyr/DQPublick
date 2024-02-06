@@ -42,7 +42,8 @@ def create_question(
 
 
 def create_quiz(quiz_data: QuizSchema, request: Request, db: Session = Depends(get_db)):
-    id_user = get_user_id_by_token(request=request, db=db)
+    # id_user = get_user_id_by_token(request=request, db=db)
+    id_user = 4
     quiz = Quiz(
         title=quiz_data.title,
         description=quiz_data.description,
