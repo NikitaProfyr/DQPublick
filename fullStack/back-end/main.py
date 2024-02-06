@@ -1,4 +1,4 @@
-from http.client import HTTPException
+
 
 from fastapi import FastAPI, Request, Depends
 from fastapi_cache.backends.redis import RedisBackend
@@ -6,8 +6,7 @@ from fastapi_cache.backends.redis import RedisBackend
 from fastapi_cache import FastAPICache
 from redis import asyncio as aioredis
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
-from starlette.status import HTTP_400_BAD_REQUEST
+
 
 from model.Quiz import Quiz, Question, Answer
 from model.UserSchema import UserCreate
@@ -80,7 +79,8 @@ from model.Settings import engine, get_db, SessionLocal
 from model.User import User
 from sqladmin.authentication import AuthenticationBackend
 from starlette.requests import Request
-from starlette.responses import RedirectResponse
+
+
 
 
 class AdminAuth(AuthenticationBackend):
@@ -119,22 +119,22 @@ admin = Admin(app=app, engine=engine, authentication_backend=authentication_back
 
 
 class UserAdmin(ModelView, model=User):
-    column_list = [User.id, User.userName]
+    column_list = [User.id, User.userName, User.email]
     column_details_exclude_list = [User.hashedPassword, User.rndstr, User.Token]
-
-
-
+    column_searchable_list = [User.email, User.userName, User.id]
 class QuizAdmin(ModelView, model=Quiz):
     column_list = [Quiz.id, Quiz.title]
+    column_searchable_list = [Quiz.id, Quiz.title]
 
 
 
 class QuestionAdmin(ModelView, model=Question):
-    column_list = [Question.id, Question.title]
-
+    column_list = [Question.id, Question.title, Question.quizId]
+    column_searchable_list = [Question.id, Question.title, Question.quizId]
 
 class AnswerAdmin(ModelView, model=Answer):
-    column_list = [Answer.id, Answer.title]
+    column_list = [Answer.id, Answer.title, Answer.questionId]
+    column_searchable_list = [Answer.id, Answer.title, Answer.questionId]
 
 
 admin.add_view(UserAdmin)

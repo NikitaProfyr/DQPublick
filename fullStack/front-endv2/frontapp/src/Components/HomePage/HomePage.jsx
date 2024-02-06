@@ -34,8 +34,8 @@ const HomePage = () => {
                                 Не драконь,<br /> пройди опрос!
                             </div>
                             <a href="#" className="button-content-home-page-buttom">
-                                <div className="content-right-2"> <span>Пройти опрос</span>
-                                </div>
+                                <a className='content-right-2' href={ROUTES.LOGIN}>Пройти опрос</a>
+                                
                             </a>
                         </div>
                     </div>

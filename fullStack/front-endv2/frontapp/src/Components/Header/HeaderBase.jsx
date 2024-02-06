@@ -5,15 +5,17 @@ import LogoImg from '../../image/IBDnew.svg'
 
 const HeaderBase = () => {
   return (
-    <div className="container">
-      <div className="Header">
+    <div className="Header-bg-base">
+      <div className="container">
+        <div className="Header">
 
-        <div className="logo">
-          <Link to={ROUTES.HOME}><img src={LogoImg} alt="Logo" /></Link>
-        </div>
-        <div className="nav-bar auth-link">
-          {/* <a href="#"></a> */}
-          <Link to={ROUTES.LOGIN}> Авторизоваться </Link>
+          <div className="logo">
+            <Link to={ROUTES.HOME}><img src={LogoImg} alt="Logo" /></Link>
+          </div>
+          <div className="nav-bar auth-link">
+            {/* <a href="#"></a> */}
+            <Link to={ROUTES.LOGIN}> Авторизоваться </Link>
+          </div>
         </div>
       </div>
     </div>

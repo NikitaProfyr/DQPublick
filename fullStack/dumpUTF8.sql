@@ -207,7 +207,9 @@ CREATE TABLE public."User" (
     id integer NOT NULL,
     email character varying,
     "hashedPassword" character varying,
-    "userName" character varying
+    "userName" character varying,
+    rndstr character varying,
+    "isAdmin" boolean
 );
 
 
@@ -510,14 +512,10 @@ COPY public."Token" (id, "userId", "refreshToken") FROM stdin;
 -- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: dies_admin
 --
 
-COPY public."User" (id, email, "hashedPassword", "userName") FROM stdin;
-3	\N	$2b$12$cq5Ozyrb8N9sZfVoAFRenOovv1Vov0yNom3h.EDf4Ttg3W/fdLjSO	dies
-36	\N	$2b$12$5.YEmhb5kpu4l2urNHcBue7fz6kNDplWu8XzneZbeqT90l/yxBOme	axe123
-40	\N	$2b$12$g.OhnyGyfwV2qA7iGYa0JOdCkGA6xIGSGMUuVcqzsC.1lRUmPy0YS	axe
-42	\N	$2b$12$caI72J5KtA.XDyXGJBrjgelUrFTqj40gW1k7xwxtUEpLfpao5c/K6	axe123321
-43	\N	$2b$12$a3VMrMkPYFAqKkeL4bFD1.Bk2zkMvZz7lQYjt7XTUV.uRh3nDkgMi	Den
-44	\N	$2b$12$lYlbv2nrvg/LQxGHBvKPi.U0Nl9FqVM3HRCr2HAIsvpIF3LT0DAvO	test
-4	email@email.ru	$2b$12$AVu5J9X4ACgvu.zsqcy8heq57jVAXCdrMXmdgNK4a.3J.qLEAS/BO	user
+COPY public."User" (id, email, "hashedPassword", "userName", rndstr, "isAdmin") FROM stdin;
+3	neicker44536@gmail.com	$2b$12$P1kmM4Hy9GjOJyEiT5yWg.7E.usCWezdv1q/YDTTbibn5nFLiEAKq	dies	\N	\N
+4	email@email.ru	$2b$12$AVu5J9X4ACgvu.zsqcy8heq57jVAXCdrMXmdgNK4a.3J.qLEAS/BO	user	\N	t
+43	toporov.axeman@gmail.com	$2b$12$iCN84st8XGP.0UP4vo0BWuTRYPUZJxhR42JACpaSRb0TgA3bYNaUy	axem4n	LzvxkbzgOzeHhlsTwFVCGrxzCGcbF6a	t
 \.
 
 
@@ -526,7 +524,7 @@ COPY public."User" (id, email, "hashedPassword", "userName") FROM stdin;
 --
 
 COPY public.alembic_version (version_num) FROM stdin;
-75a26848d1f9
+bc9af4e8ef48
 \.
 
 
@@ -534,14 +532,14 @@ COPY public.alembic_version (version_num) FROM stdin;
 -- Name: Answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dies_admin
 --
 
-SELECT pg_catalog.setval('public."Answer_id_seq"', 494, true);
+SELECT pg_catalog.setval('public."Answer_id_seq"', 502, true);
 
 
 --
 -- Name: Question_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dies_admin
 --
 
-SELECT pg_catalog.setval('public."Question_id_seq"', 180, true);
+SELECT pg_catalog.setval('public."Question_id_seq"', 184, true);
 
 
 --
@@ -555,14 +553,14 @@ SELECT pg_catalog.setval('public."QuizResults_id_seq"', 16, true);
 -- Name: Quiz_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dies_admin
 --
 
-SELECT pg_catalog.setval('public."Quiz_id_seq"', 66, true);
+SELECT pg_catalog.setval('public."Quiz_id_seq"', 70, true);
 
 
 --
 -- Name: Token_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dies_admin
 --
 
-SELECT pg_catalog.setval('public."Token_id_seq"', 195, true);
+SELECT pg_catalog.setval('public."Token_id_seq"', 210, true);
 
 
 --
@@ -626,6 +624,14 @@ ALTER TABLE ONLY public."User"
 
 ALTER TABLE ONLY public."User"
     ADD CONSTRAINT "User_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: User User_rndstr_key; Type: CONSTRAINT; Schema: public; Owner: dies_admin
+--
+
+ALTER TABLE ONLY public."User"
+    ADD CONSTRAINT "User_rndstr_key" UNIQUE (rndstr);
 
 
 --

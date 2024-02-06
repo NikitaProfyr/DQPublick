@@ -1,5 +1,6 @@
 .bg-autorization{
-    height: calc(100vh - 80px);
+    height: 100vh;
+    padding: 80px 0 0 0;
     background: rgb(191,208,236);
     background: linear-gradient(135deg, rgba(191,208,236,1) 0%, rgba(255,255,255,1) 100%);
     width: 100%;
