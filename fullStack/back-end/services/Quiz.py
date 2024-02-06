@@ -16,6 +16,7 @@ from fastapi import HTTPException, Depends, UploadFile, File, Form, Request
 from starlette.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED
 
 from model.UserSchema import UserId
+from services.Mail import generate_rndstr
 from services.User import get_user_id_by_token
 
 
@@ -163,6 +164,7 @@ def create_image_quiz(image: UploadFile = File(...)):
     img_path = "media/quizImage/"
     with open(f"{img_path}{image.filename}", "wb") as buffer:
         shutil.copyfileobj(image.file, buffer)
+
     return img_path + image.filename
 
 
