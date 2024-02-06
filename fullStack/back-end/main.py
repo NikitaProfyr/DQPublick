@@ -28,6 +28,7 @@ app = FastAPI(
     contact={"name": "Toporov Denis, Profyr Nikita"},
 )
 
+
 add_pagination(app)
 
 # регистрация роутеров
