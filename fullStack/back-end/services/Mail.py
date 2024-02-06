@@ -1,5 +1,3 @@
-import smtplib
-from smtplib import SMTP
 import random, string
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -21,7 +19,7 @@ from settings.MailSettings import get_smtp_server
 load_dotenv()
 
 
-def get_html(rndstr):
+def get_html(rndstr: str):
     return f"""
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +65,6 @@ def get_html(rndstr):
 
 
 def send_message_ibd(email: UserEmail, db: Session = Depends(get_db)):
-
     user = db.scalar(select(User).where(or_(User.email == email.email)))
     if not user:
         raise HTTPException(
@@ -100,6 +97,6 @@ def get_message(text_html: str, to_addres: str) -> MIMEMultipart:
     msg = MIMEMultipart()
     msg.attach(MIMEText(text_html, 'html'))
     msg['Subject'] = 'Subject line'
-    msg['From'] = 'IBDCorporation@yandex.com'
+    msg['From'] = f'{getenv("MAIL_NAME")}'
     msg['To'] = f'{to_addres}'
     return msg
