@@ -54,7 +54,6 @@ app.include_router(
 @app.on_event("startup")
 async def startup_event():
     redis = aioredis.from_url(
-        # "redis://redis", encoding="utf8", decode_responses=True
         f"redis://{getenv('REDIS_HOST')}",
         encoding="utf8",
         decode_responses=True,
@@ -122,15 +121,17 @@ class UserAdmin(ModelView, model=User):
     column_list = [User.id, User.userName, User.email]
     column_details_exclude_list = [User.hashedPassword, User.rndstr, User.Token]
     column_searchable_list = [User.email, User.userName, User.id]
+
+
 class QuizAdmin(ModelView, model=Quiz):
     column_list = [Quiz.id, Quiz.title]
     column_searchable_list = [Quiz.id, Quiz.title]
 
 
-
 class QuestionAdmin(ModelView, model=Question):
     column_list = [Question.id, Question.title, Question.quizId]
     column_searchable_list = [Question.id, Question.title, Question.quizId]
+
 
 class AnswerAdmin(ModelView, model=Answer):
     column_list = [Answer.id, Answer.title, Answer.questionId]

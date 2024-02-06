@@ -1,4 +1,5 @@
 import smtplib
+from smtplib import SMTP
 import random, string
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -15,6 +16,7 @@ from starlette.status import HTTP_404_NOT_FOUND, HTTP_200_OK
 from model.Settings import get_db
 from model.User import User
 from model.UserSchema import UserEmail
+from settings.MailSettings import get_smtp_server
 
 load_dotenv()
 
@@ -76,29 +78,28 @@ def send_message_ibd(email: UserEmail, db: Session = Depends(get_db)):
         rndstr = generate_rndstr()
         user.rndstr = rndstr
         db.commit()
-        smtp_server = "smtp.yandex.com"
-        mail = 'IBDCorporation@yandex.com'
-        password = getenv('MAIL_PASS')
-        port = 587   # используйте порт 465 для SSL
-        msg = MIMEMultipart()
-
-        msg['Subject'] = 'Subject line'
-        msg['From'] = 'IBDCorporation@yandex.com'
-        msg['To'] = f'{email.email}'
-
+        server = get_smtp_server()
         try:
-            server = smtplib.SMTP(smtp_server, port, timeout=10)
-            server.starttls()
-            server.login(mail, password)
             html_content = get_html(rndstr)
-            msg.attach(MIMEText(html_content, 'html'))
-            server.send_message(msg, from_addr='IBDCorporation@yandex.com', to_addrs=f'{email.email}')
-            server.quit()
+            message = get_message(html_content, email.email)
+            server.send_message(message, to_addrs=email.email)
         except Exception as es:
             print(es)
+        finally:
+            server.quit()
+
     return HTTP_200_OK
 
 
 def generate_rndstr():
     characters = string.ascii_letters + string.digits
     return ''.join(random.choice(characters) for i in range(31))
+
+
+def get_message(text_html: str, to_addres: str) -> MIMEMultipart:
+    msg = MIMEMultipart()
+    msg.attach(MIMEText(text_html, 'html'))
+    msg['Subject'] = 'Subject line'
+    msg['From'] = 'IBDCorporation@yandex.com'
+    msg['To'] = f'{to_addres}'
+    return msg
