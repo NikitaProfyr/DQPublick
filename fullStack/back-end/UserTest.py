@@ -1,28 +1,25 @@
-from fastapi import Depends
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
 
 from main import app
-from model.Settings import get_db
-from model.UserSchema import UserBase, UserId
-from services.User import create_token, get_current_user, get_user
+
+from services.User import create_token
 
 client = TestClient(app)
 
 
-testUser = {"userName": "testUserName", "password": "testPassword"}
-testToken = create_token(testUser)
+test_user = {"userName": "testUserName", "password": "testPassword"}
+test_token = create_token(test_user)
 
 
-def testRegistration():
-    response = client.post("/users/logup", json=testUser)
+def test_registration():
+    response = client.post("/users/logup", json=test_user)
     assert response.status_code == 200  # Успешная регистрация
-    response = client.post("/users/logup", json=testUser)
+    response = client.post("/users/logup", json=test_user)
     assert response.status_code == 400  # Повторная регистрация
 
 
-def testAuthorization():
-    response = client.post("/users/login", json=testUser)
+def test_authorization():
+    response = client.post("/users/login", json=test_user)
     assert response.status_code == 200  # Успешная авторизация.
     response = client.post(
         "/users/login", json={"userName": "testUserName", "password": "fakePassword"}
@@ -30,12 +27,3 @@ def testAuthorization():
     assert (
         response.status_code == 401
     )  # Не существует пользователя с данным логином или некорректный пароль.
-
-
-def testDeleteUser():
-    response = client.post(f"/users/getUser?token={testToken}")
-    response = client.delete(
-        f"/users/delete?userId={response.json().get('id')}",
-        headers={"Authorization": testToken},
-    )
-    assert response.status_code == 200

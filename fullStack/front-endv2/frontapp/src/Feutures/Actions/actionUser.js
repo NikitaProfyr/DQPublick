@@ -1,11 +1,5 @@
-import { ApiUrl } from "../../Http";
 import AuthService from "../../Services/AuthService"
 import { ROUTES } from "../../utils/routes";
-// import UPDATE_USER from "../Reducers/reduserUser"
-// export const loginAction = async (userName, password, dispatch) => {
-//     const data = await AuthService.login(userName, password)
-//     dispatch({type: 'LOGINSUCCES', payload: data})
-// }
 
 export const loginAction = (userName, password, dispatch) => {
     AuthService.login(userName, password).then((res) => {
