@@ -662,9 +662,8 @@ COPY public."Token" (id, "userId", "refreshToken") FROM stdin;
 --
 
 COPY public."User" (id, email, "hashedPassword", "userName", rndstr, "isAdmin") FROM stdin;
-3	neicker44536@gmail.com	$2b$12$P1kmM4Hy9GjOJyEiT5yWg.7E.usCWezdv1q/YDTTbibn5nFLiEAKq	dies	\N	\N
-4	email@email.ru	$2b$12$AVu5J9X4ACgvu.zsqcy8heq57jVAXCdrMXmdgNK4a.3J.qLEAS/BO	user	\N	t
-43	toporov.axeman@gmail.com	$2b$12$iCN84st8XGP.0UP4vo0BWuTRYPUZJxhR42JACpaSRb0TgA3bYNaUy	axem4n	LzvxkbzgOzeHhlsTwFVCGrxzCGcbF6a	t
+3	neicker44536@gmail.com	$2b$12$P1kmM4Hy9GjOJyEiT5yWg.7E.usCWezdv1q/YDTTbibn5nFLiEAKq	dies	\N	t
+4	toporov.axeman@gmail.com	$2b$12$AVu5J9X4ACgvu.zsqcy8heq57jVAXCdrMXmdgNK4a.3J.qLEAS/BO	user	\N	t
 \.
 
 
