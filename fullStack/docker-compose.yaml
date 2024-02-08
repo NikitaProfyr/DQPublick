@@ -45,8 +45,6 @@ services:
     build: 
       context: ./front-endv2
       dockerfile: Dockerfile
-    volumes:
-      - ./front-endv2:/front-end
     command: >
       bash -c
       "
