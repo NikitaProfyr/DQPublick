@@ -2,7 +2,7 @@ import { combineReducers, createStore, applyMiddleware } from 'redux'
 import reducerUser from './reduserUser'
 import { reducerQuiz } from './reducerQuiz';
 
-import thunk from 'redux-thunk'
+import { thunk } from 'redux-thunk'
 
 
 // const rootReducer = combineReducers({
