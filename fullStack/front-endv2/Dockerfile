@@ -10,5 +10,6 @@ COPY . .
 RUN npm install
 WORKDIR /front-end/frontapp/
 RUN npm install
+RUN npm install -g react-scripts
 
 
