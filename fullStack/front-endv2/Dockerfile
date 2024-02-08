@@ -8,7 +8,7 @@ COPY . .
 
 
 RUN npm install
-CMD ["cd", "frontapp"]
+WORKDIR /front-end/frontapp/
 RUN npm install
 
 
