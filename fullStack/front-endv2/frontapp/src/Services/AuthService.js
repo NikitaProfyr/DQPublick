@@ -5,6 +5,7 @@ export default class AuthService {
         const { data } = await Api.post('/users/login', { userName, password }, {
             headers: {
                 'Access-Control-Allow-Credentials': 'true',
+		'Access-Control-Allow-Origin': '*',
                 'credentials': 'include'
             }
         }, {

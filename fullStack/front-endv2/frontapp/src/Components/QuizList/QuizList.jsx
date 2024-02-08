@@ -17,7 +17,7 @@ const QuizList = () => {
   const [totalPage, setTotalPage] = useState(1)
   const quiz = useSelector(state => state.reducerQuiz.quiz)
   const dispatch = useDispatch()
-   
+  console.log("test2") 
 
   useEffect(() => {
     if(quiz !== undefined){
