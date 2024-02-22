@@ -76,7 +76,7 @@ def authorization(
             max_age=24 * 30 * 60 * 60 * 1000,
             httponly=True,
             samesite="None",
-            secure="False",
+            secure=False,
         )
         response.headers["Authorization"] = access_token
         print(user.id)  # Я не знаю почему, но без принта эта движуха не работает
@@ -96,7 +96,7 @@ def authorization(
         max_age=24 * 30 * 60 * 60 * 1000,
         httponly=True,
         samesite="None",
-        secure="False",
+        secure=False,
     )
     response.headers["Authorization"] = access_token
     print(user.id)  # Я не знаю почему, но без принта эта движуха не работает
@@ -155,7 +155,7 @@ def update_user_data(
         max_age=24 * 30 * 60 * 60 * 1000,
         httponly=True,
         samesite="None",
-        secure="False",
+        secure=False,
     )
     response.headers["Authorization"] = access_token
 
