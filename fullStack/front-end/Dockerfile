@@ -5,7 +5,7 @@ WORKDIR /app/
 COPY ./package.json ./package.json
 COPY . .
 
-RUN npm install --force
+RUN npm install 
 
 
 
