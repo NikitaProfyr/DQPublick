@@ -3,7 +3,7 @@ import { ROUTES } from "../utils/routes"
 
 
 // export const ApiUrl = 'http://localhost:8000'
-export const ApiUrl = 'http://212.113.117.177:8080'
+export const ApiUrl = 'http://212.113.117.177/api'
 
 let Api = null;
 
