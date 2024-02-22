@@ -64,7 +64,7 @@ async def startup_event():
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[getenv("SITE_HOST"), "http://212.113.117.177:3000", "http://212.113.117.177:8000", "http://212.113.117.177:80"],
+    allow_origins=[getenv("SITE_HOST"), "http://212.113.117.177:3000", "http://212.113.117.177:8080"],
     allow_credentials=True,  # Разрешить отправлять куки
     allow_methods=["POST", "GET", "DELETE", "PUT"],  # Разрешить любые HTTP-методы
     allow_headers=["*"],  # Разрешить любые заголовки
