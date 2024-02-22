@@ -1,10 +1,9 @@
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /app/
 
 COPY ./package.json ./package.json
-COPY ./public ./public
-COPY ./src ./src
+COPY . .
 
 RUN npm install --force
 
