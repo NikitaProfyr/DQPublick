@@ -7,7 +7,7 @@
 - Введите команду: docker compose up --build dq-client
 - После того, как произойдет сборка проекта введите следующие команды в другом терминале:
     - docker exec -it fullstack-db-1 /bin/bash
-    - psql -d postgres -U dies_admin < /docker-entrypoint-initdb.d/dumpUTF8.sql
+    - psql -d postgres -U postgres < /docker-entrypoint-initdb.d/dumpUTF8.sql
 - Перейдите по ссылке: http://localhost:3000/
 - Зарегистрируйтесь или войдите в учётную запись:
     - логин: user
