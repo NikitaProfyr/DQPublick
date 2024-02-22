@@ -154,8 +154,8 @@ def update_user_data(
         value=refresh_token,
         max_age=24 * 30 * 60 * 60 * 1000,
         httponly=True,
-        samesite="None",
-        secure="False",
+        samesite=None,
+        secure=False,
     )
     response.headers["Authorization"] = access_token
 
