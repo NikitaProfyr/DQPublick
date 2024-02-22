@@ -7,6 +7,7 @@ export const ApiUrl = 'http://212.113.117.177:8000'
 
 let Api = null;
 
+// axios.defaults.headers
 
 const ApiWithOutToken = axios.create({
     withCredentials: true,
