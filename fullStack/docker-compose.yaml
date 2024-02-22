@@ -43,7 +43,7 @@ services:
       - "6379:6379"
   dq-client:
     build: 
-      context: ./front-endv2
+      context: ./front-end
       dockerfile: Dockerfile
     command: >
       bash -c
