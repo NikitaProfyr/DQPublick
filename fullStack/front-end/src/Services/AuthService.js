@@ -79,10 +79,10 @@ export default class AuthService {
         const emailData = {
             email: email,
         }
-        const { data } = Api.post('/users/reset/password', emailData).catch((err) => (
-            alert("Пользователя с данной почтой не существует.") 
-        )).then((res) => (
+        const { data } = Api.post('/users/reset/password', emailData).then((res) => (
             alert(`На ${email} было отправлено сообщение.`)
+        )).catch((err) => (
+            alert("Пользователя с данной почтой не существует.") 
         ))
         return data    
     }
@@ -91,10 +91,10 @@ export default class AuthService {
             password: password,
             rndstr: rndstr,
         }
-        const { data } = Api.post('users/change/password', Data).catch((e) => (
-            alert(e.response.data.detail)
-        )).then((res) => (
+        const { data } = Api.post('users/change/password', Data).then((res) => (
             alert("Пароль успешно изменён")
+        )).catch((e) => (
+            alert(e.response.data.detail)
         ))
     }
 }
