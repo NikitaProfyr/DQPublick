@@ -33,12 +33,15 @@ user_private_router = APIRouter(
 def refresh(request: Request, db: Session = Depends(get_db)):
     """Получает существующий рефреш токен, при условии корректного возращает access_token"""
     refresh_token = request.cookies.get("refreshToken")
+    print(request.cookies)
     if refresh_token is None:
+        print("Нет токена")
         raise HTTPException(
             status_code=HTTP_408_REQUEST_TIMEOUT, detail="Не валидный refresh token"
         )
     refresh_token = validate_refresh_token(token=refresh_token, db=db)
     if refresh_token is None:
+        print("Не прошел проверку")
         raise HTTPException(
             status_code=HTTP_408_REQUEST_TIMEOUT, detail="Не валидный refresh token"
         )

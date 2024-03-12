@@ -79,7 +79,7 @@ const QuizCreate = () => {
   const removeQuestion = (e, item) => {
     e.preventDefault()
     if (quiz.question.length < 2) {
-      return alert("опрос должен содержать минимум 1 опрос")
+      return alert("опрос должен содержать минимум 2 вопроса")
     }
     const index = quiz.question.indexOf(item)
     delete quiz.question[index]
@@ -115,8 +115,9 @@ const QuizCreate = () => {
   
   const addQuiz = async (e) => {
     e.preventDefault()
-
-    console.log(quiz)
+    if (quiz.question.length < 3) {
+      return alert("опрос должен содержать минимум 2 вопроса")
+    }
     quiz.image = await QuizService.createImageQuiz(quiz.image)
     dispatch(addQuestionAction(quiz))
     QuizService.createQuiz(quiz).catch((error) => {

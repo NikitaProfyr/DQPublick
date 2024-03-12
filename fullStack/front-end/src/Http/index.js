@@ -2,7 +2,7 @@ import axios from "axios";
 import { ROUTES } from "../utils/routes"
 
 
-// export const ApiUrl = 'http://localhost:8000'
+// export const ApiUrl = 'http://localhost:8080'
 export const ApiUrl = 'http://212.113.117.177/api'
 
 let Api = null;
@@ -15,7 +15,7 @@ const ApiWithOutToken = axios.create({
 })
 
 const ApiWithToken = axios.create({
-    // withCredentials: true,
+    withCredentials: true,
     baseURL: ApiUrl,
 })
 
@@ -34,7 +34,7 @@ ApiWithToken.interceptors.response.use((config) => {
     const originalRequest = error.config
     if(error.response.status === 401){
        try {
-            const accessToken = await ApiWithOutToken.post('/users/refresh')
+            const accessToken = await ApiWithToken.post('/users/refresh')
             .catch((err) => {
                 if(err.response.status === 408){
                     try {
@@ -62,5 +62,5 @@ else{
     Api = ApiWithToken
 }
 
-Api.defaults.withCredentials = true
+// Api.defaults.withCredentials = true
 export default Api

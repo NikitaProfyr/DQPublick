@@ -84,7 +84,7 @@ def add_quiz_result(
     return create_quiz_results(request=request, quiz_id=quiz_id, result=result, db=db)
 
 
-@quiz_public_router.post("/createquiz")
+@quiz_private_router.post("/createquiz")
 def add_quiz(quiz_data: QuizSchema, request: Request, db: Session = Depends(get_db)):
     """Создать опрос у конкретного пользователя"""
     return create_quiz(quiz_data=quiz_data, request=request, db=db)
